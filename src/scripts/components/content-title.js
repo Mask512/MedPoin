@@ -19,11 +19,8 @@ class ContentTitle extends HTMLElement {
       `;
   }
 
-  attributeChangedCallback(name, oldValue, newValue) {
+  attributeChangedCallback(name) {
     if (name === 'data-link') {
-      console.log(
-        `Attribute ${name} has changed from ${oldValue} to ${newValue}.`,
-      );
       this.render();
     }
   }
