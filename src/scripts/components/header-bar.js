@@ -22,8 +22,8 @@ class Navbar extends HTMLElement {
                 </svg>
               </button>
               <a href="#" class="ml-2 flex md:mr-24">
-                <img src="${APP_CONFIG.logo}" class="mr-3 h-8" alt="FlowBite Logo" />
-                <span class="self-center whitespace-nowrap text-xl font-semibold dark:text-gray-400 sm:text-2xl">${APP_CONFIG.name}</span>
+                <img src="${APP_CONFIG.LOGO}" class="mr-3 h-8" alt="FlowBite Logo" />
+                <span class="self-center whitespace-nowrap text-xl font-semibold dark:text-gray-400 sm:text-2xl">${APP_CONFIG.NAME}</span>
               </a>
             </div>
             
