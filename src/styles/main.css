@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;500;800&display=swap");
 @import "material-symbols";
+@import "gridjs/dist/theme/mermaid.css";
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -15,5 +16,5 @@ body * {
 }
 
 .menu-item.active {
-  @apply rounded-lg bg-gray-100 ring-1 ring-slate-600 dark:bg-gray-700 dark:ring-amber-100;
+  @apply rounded-md bg-gray-100 ring-1 ring-slate-600 dark:bg-gray-700 dark:ring-gray-200;
 }

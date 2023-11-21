@@ -1,8 +1,9 @@
-import logo from '../../assets/svg/hospital.svg';
+import LOGO from '../../assets/svg/hospital.svg';
 
 const APP_CONFIG = {
-  name: 'MedPoin',
-  logo,
+  NAME: 'MedPoin',
+  LOGO,
+  BASE_URL: '',
 };
 
 export default APP_CONFIG;

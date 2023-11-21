@@ -5,11 +5,10 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 module.exports = merge(common, {
   mode: 'development',
   devServer: {
+    watchFiles: ['./src/templates/index.html'],
     port: 9100,
     open: true,
-    hot: true,
     compress: true,
-    historyApiFallback: true,
     client: {
       overlay: {
         errors: true,

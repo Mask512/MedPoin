@@ -1,6 +1,10 @@
+import '../../components/registration-form';
+
 const Registrasi = {
   async render() {
-    return 'halo from Registrasi';
+    return `
+    <registration-form></registration-form>
+    `;
   },
 };
 
