@@ -9,11 +9,11 @@ const createGrid = (tableId, columns, data, options = {}) => {
     sort: true,
     language: idID,
     className: {
-      th: 'text-gray-700 text-lg uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400',
-      td: 'text-gray-900 dark:text-white dark:bg-gray-800',
-      paginationSummary: 'text-gray-700 dark:text-white',
+      th: 'table-header',
+      td: 'table-data',
+      paginationSummary: 'table-summary',
       footer:
-        'bg-gray-50 dark:bg-gray-700',
+        'table-footer',
     },
   };
 

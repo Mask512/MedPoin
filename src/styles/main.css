@@ -1,13 +1,13 @@
-@import url("https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;500;800&display=swap");
-@import "material-symbols";
-@import "gridjs/dist/theme/mermaid.css";
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;500;800&display=swap');
+@import 'material-symbols';
+@import 'gridjs/dist/theme/mermaid.css';
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
   html {
-    font-family: "Source Sans 3", sans-serif;
+    font-family: 'Source Sans 3', sans-serif;
   }
 }
 
@@ -17,4 +17,27 @@ body * {
 
 .menu-item.active {
   @apply rounded-md bg-gray-100 ring-1 ring-slate-600 dark:bg-gray-700 dark:ring-gray-200;
+}
+
+.table-header {
+  @apply bg-gray-50 text-lg uppercase text-gray-700 dark:bg-gray-700 dark:text-gray-400;
+}
+
+.table-data {
+  @apply text-gray-900 dark:bg-gray-800 dark:text-white;
+}
+
+.table-summary {
+  @apply text-gray-700 dark:text-white;
+}
+.table-footer {
+  @apply bg-gray-50 dark:bg-gray-700;
+}
+
+.table-button {
+  @apply max-h-12 w-full rounded-lg bg-blue-500 px-5 py-3 text-center text-sm font-medium uppercase text-white hover:bg-gray-800 focus:outline-none focus:ring-4 focus:ring-blue-500 dark:hover:bg-gray-700 dark:focus:ring-blue-500;
+}
+
+.gridjs-search {
+  float: right;
 }
