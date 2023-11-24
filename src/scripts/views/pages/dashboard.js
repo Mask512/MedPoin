@@ -18,12 +18,13 @@ const Dashboard = {
     patientCards.data = { total, terlayani };
     patientCards.setAttribute('loading', 'false');
 
-    const patientData = data.map((item) => [
-      item.patient_name,
-      item.date,
-      item.time,
-      item.status ? 'Terlayani' : 'Antri',
-      item.doctor_name,
+    const patientData = data.map((patient) => [
+      patient.queue_number,
+      patient.patient_name,
+      patient.date,
+      patient.time,
+      patient.status ? 'Terlayani' : 'Antri',
+      patient.doctor_name,
     ]);
 
     const patientHistory = document.querySelector('patient-history');

@@ -106,6 +106,7 @@ class AppoinmentForm extends HTMLElement {
     ) {
       showAlert.toast(
         'Formulir tidak lengkap atau dokter tidak dipilih. Harap isi semua kolom dan pilih dokter.',
+        { icon: 'warning' },
       );
       return;
     }
