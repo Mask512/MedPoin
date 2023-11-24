@@ -9,13 +9,22 @@ import App from './views/app';
 
 const contentTitle = document.querySelector('content-title');
 const mainContent = document.querySelector('#main-content');
-
 const app = new App(contentTitle, mainContent);
 
-window.addEventListener('hashchange', () => {
-  app.renderPage();
-});
+function checkAuthAndRedirect() {
+  const user = localStorage.getItem('username');
+  if (!user) {
+    window.location.href = '/login.html?auth=false';
+  }
+  return !!user;
+}
 
-window.addEventListener('load', () => {
-  app.renderPage();
-});
+function handlePageChange() {
+  const isAuthenticated = checkAuthAndRedirect();
+  if (isAuthenticated) {
+    app.renderPage();
+  }
+}
+
+window.addEventListener('hashchange', handlePageChange);
+window.addEventListener('load', handlePageChange);

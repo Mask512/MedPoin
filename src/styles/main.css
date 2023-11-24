@@ -35,7 +35,7 @@ body * {
 }
 
 .table-button {
-  @apply max-h-12 w-full rounded-lg bg-blue-500 px-5 py-3 text-center text-sm font-medium uppercase text-white hover:bg-gray-800 focus:outline-none focus:ring-4 focus:ring-blue-500 dark:hover:bg-gray-700 dark:focus:ring-blue-500;
+  @apply w-full rounded-lg bg-blue-500 px-4 py-2 text-center text-sm font-medium uppercase text-white hover:bg-gray-800 focus:outline-none focus:ring-4 focus:ring-blue-500 dark:hover:bg-gray-700 dark:focus:ring-blue-500;
 }
 
 .gridjs-search {

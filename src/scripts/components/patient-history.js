@@ -1,6 +1,9 @@
 import createTable from '../utils/create-table';
 
-const columns = ['Nama', 'Tanggal Pendaftaran', 'Pukul', 'Status', 'Dokter'];
+const columns = [{
+  name: 'No. Antrian',
+  width: '100px',
+}, 'Nama', 'Tanggal Pendaftaran', 'Pukul', 'Status', 'Dokter'];
 
 class PatientHistory extends HTMLElement {
   connectedCallback() {
