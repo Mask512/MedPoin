@@ -13,7 +13,7 @@ class PatientList extends HTMLElement {
   render() {
     this.innerHTML = `
     <div>
-    <h3 class="text-xl font-bold mt-4 -mb-10">Daftar Pasien</h3>
+    <h3 class="text-xl font-bold mt-4 md:-mb-10">Daftar Pasien</h3>
     <div id="table-data"></div>
     </div>
       `;
