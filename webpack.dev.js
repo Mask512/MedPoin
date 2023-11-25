@@ -15,6 +15,7 @@ module.exports = merge(common, {
         warnings: false,
       },
     },
+    historyApiFallback: true,
   },
   output: {
     filename: '[name].dev.js',
