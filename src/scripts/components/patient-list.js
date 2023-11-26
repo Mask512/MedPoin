@@ -24,6 +24,7 @@ class PatientList extends HTMLElement {
       'No. RM',
       'Nama',
       'Alamat',
+      'Nomor HP',
       {
         name: 'Action',
         formatter: (cell, row) => h('button', {
