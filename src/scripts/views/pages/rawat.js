@@ -1,21 +1,6 @@
 import '../../components/appointment-form';
 import '../../components/patient-list';
-import dataSource from '../../data/patients.json';
-
-const doctors = [
-  {
-    id: 1,
-    name: 'dr. Bryan',
-  },
-  {
-    id: 2,
-    name: 'dr. Fikry',
-  },
-  {
-    id: 3,
-    name: 'dr. Dhimas',
-  },
-];
+import DATA from '../../data/data';
 
 const Rawat = {
   async render() {
@@ -25,18 +10,23 @@ const Rawat = {
     `;
   },
   async afterRender() {
-    const appointmentForm = document.querySelector('appointment-form');
-    appointmentForm.data = doctors;
+    try {
+      const appointmentForm = document.querySelector('appointment-form');
+      appointmentForm.data = await DATA.getDoctors();
 
-    const { patients } = dataSource;
-    const patientsData = patients.map((patient) => [
-      `RM-000${patient.id}`,
-      patient.name,
-      patient.address,
-    ]);
+      const patients = await DATA.getPatients();
+      const patientsData = patients.map((patient) => [
+        patient.no_rm,
+        patient.nama,
+        patient.alamat,
+        patient.no_hp,
+      ]);
 
-    const patientList = document.querySelector('patient-list');
-    patientList.data = patientsData;
+      const patientList = document.querySelector('patient-list');
+      patientList.data = patientsData;
+    } catch (error) {
+      console.log(error);
+    }
   },
 };
 

@@ -1,6 +1,6 @@
 import '../../components/patient-cards';
 import '../../components/patient-history';
-import dataSource from '../../data/dashboard.json';
+import DATA from '../../data/data';
 
 const Dashboard = {
   async render() {
@@ -11,24 +11,29 @@ const Dashboard = {
   },
 
   async afterRender() {
-    const { data } = dataSource;
-    const total = data.length;
-    const terlayani = data.filter((obj) => obj.status).length;
-    const patientCards = document.querySelector('patient-cards');
-    patientCards.data = { total, terlayani };
-    patientCards.setAttribute('loading', 'false');
+    try {
+      const data = await DATA.dashboard();
+      const total = data.length;
+      const terlayani = data.filter((obj) => obj.status).length;
+      const patientCards = document.querySelector('patient-cards');
+      patientCards.data = { total, terlayani };
+      patientCards.setAttribute('loading', 'false');
 
-    const patientData = data.map((patient) => [
-      patient.queue_number,
-      patient.patient_name,
-      patient.date,
-      patient.time,
-      patient.status ? 'Terlayani' : 'Antri',
-      patient.doctor_name,
-    ]);
+      const patientData = data.map((patient) => [
+        patient.no_antrian,
+        patient.no_rawat,
+        patient.no_rm,
+        patient.nama,
+        patient.tanggal_pendaftaran,
+        patient.status ? 'Terlayani' : 'Belum Terlayani',
+        patient.nama_dokter,
+      ]);
 
-    const patientHistory = document.querySelector('patient-history');
-    patientHistory.data = patientData;
+      const patientHistory = document.querySelector('patient-history');
+      patientHistory.data = patientData;
+    } catch (error) {
+      console.log(error.message);
+    }
   },
 };
 
