@@ -4,12 +4,19 @@ import APP_CONFIG from '../configs/config';
 class DATA {
   static API_KEY = APP_CONFIG.API_KEY;
 
+  static getOptions() {
+    if (process.env.APP_ENV === 'production') {
+      return {
+        headers: {
+          'X-API-Key': this.API_KEY,
+        },
+      };
+    }
+    return {};
+  }
+
   static async getPatients() {
-    const response = await fetch(API_ENDPOINT.PATIENTS, {
-      headers: {
-        'X-API-Key': this.API_KEY,
-      },
-    });
+    const response = await fetch(API_ENDPOINT.PATIENTS, { ...this.getOptions });
     return response.json();
   }
 
@@ -19,11 +26,7 @@ class DATA {
   }
 
   static async dashboard() {
-    const response = await fetch(API_ENDPOINT.DASHBOARD, {
-      headers: {
-        'X-API-Key': this.API_KEY,
-      },
-    });
+    const response = await fetch(API_ENDPOINT.DASHBOARD, { ...this.getOptions });
     return response.json();
   }
 }
