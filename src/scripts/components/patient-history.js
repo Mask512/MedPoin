@@ -1,10 +1,5 @@
 import createTable from '../utils/create-table';
 
-const columns = [{
-  name: 'No. Antrian',
-  width: '100px',
-}, 'Nama', 'Tanggal Pendaftaran', 'Pukul', 'Status', 'Dokter'];
-
 class PatientHistory extends HTMLElement {
   connectedCallback() {
     this.render();
@@ -16,14 +11,24 @@ class PatientHistory extends HTMLElement {
 
   render() {
     this.innerHTML = `
-    <div>
-    <h3 class="text-lg font-bold my-4">Riwayat Pasien</h3>
-    <div id="table-data"></div>
-    </div>
-      `;
+      <div>
+        <h3 class="text-lg font-bold my-4">Riwayat Pasien</h3>
+        <div id="table-data"></div>
+      </div>
+    `;
   }
 
   _createTable(data) {
+    const columns = [
+      { name: 'No. Antrian', width: '100px' },
+      'No. Rawat',
+      'No. RM',
+      'Nama',
+      'Tanggal',
+      'Status',
+      'Dokter',
+    ];
+
     createTable('table-data', columns, data);
   }
 }

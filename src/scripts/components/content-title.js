@@ -9,7 +9,7 @@ class ContentTitle extends HTMLElement {
 
   render() {
     const linkValue = this.getAttribute('data-link');
-    const menuItem = menuList.find((menu) => menu.item === linkValue);
+    const menuItem = menuList.find((menu) => menu.item === linkValue) || '';
 
     this.innerHTML = `
         <nav class="inline-flex px-3 py-3 rounded-md text-gray-700 bg-gray-50 dark:bg-gray-800 dark:border-gray-700" aria-label="Breadcrumb">

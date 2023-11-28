@@ -20,6 +20,10 @@ class App {
     this._contentTitleElement.setAttribute('data-link', title);
 
     const page = routes[url];
+    if (!page) {
+      window.location.href = '/';
+      return;
+    }
     this._mainContentElement.innerHTML = await page.render();
     if (page.afterRender) {
       page.afterRender();

@@ -7,7 +7,7 @@ const defaultConfig = {
 
 const Toast = Swal.mixin({
   toast: true,
-  position: 'top-right',
+  position: 'top-end',
   // customClass: {
   //   popup: 'colored-toast',
   // },
