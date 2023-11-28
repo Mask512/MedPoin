@@ -29,7 +29,7 @@ module.exports = merge(common, {
       filename: 'main.prod.css',
     }),
     new Dotenv({
-      path: '.env'
+      systemvars: true,
     }),
   ],
 });
