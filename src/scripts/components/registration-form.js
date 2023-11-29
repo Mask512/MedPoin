@@ -76,8 +76,9 @@ class RegistrationForm extends HTMLElement {
           <select
             id="golongan-darah"
             class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+            required
           >
-            <option selected="">Pilih</option>
+            <option selected value="">Pilih</option>
             <option value="A">A</option>
             <option value="B">B</option>
             <option value="O">O</option>
@@ -128,6 +129,7 @@ class RegistrationForm extends HTMLElement {
               placeholder="DD/MM/YYYY"
               id="tanggal-lahir"
               name="tanggal-lahir"
+              required
             />
           </div>
         </div>
@@ -156,8 +158,9 @@ class RegistrationForm extends HTMLElement {
           <select
             id="jenis-kelamin"
             class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+            required
           >
-            <option selected="">Pilih</option>
+            <option selected value="">Pilih</option>
             <option value="L">Laki-Laki</option>
             <option value="P">Perempuan</option>
           </select>
@@ -172,8 +175,9 @@ class RegistrationForm extends HTMLElement {
           <select
             id="status-perkawinan"
             class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+            required
           >
-            <option selected="">Pilih</option>
+            <option selected value="">Pilih</option>
             <option value="Single">Single</option>
             <option value="Menikah">Menikah</option>
             <option value="Cerai">Cerai</option>

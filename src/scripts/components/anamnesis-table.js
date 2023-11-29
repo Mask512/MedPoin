@@ -35,7 +35,7 @@ class AnamnesisTable extends HTMLElement {
     this.querySelector('#closeModal').addEventListener(
       'click',
       () => {
-        this._closeModal();
+        this.form.hide();
       },
     );
   }
@@ -64,6 +64,7 @@ class AnamnesisTable extends HTMLElement {
       'No. Rawat',
       'No. RM',
       'Nama Pasien',
+      { name: 'ID Dokter', hidden: true },
       'Dokter',
       {
         name: 'Action',
@@ -75,7 +76,8 @@ class AnamnesisTable extends HTMLElement {
               row.cells[1].data, // 'No. Rawat',
               row.cells[2].data, // 'No. RM',
               row.cells[3].data, // 'Nama Pasien',
-              row.cells[4].data, // 'Dokter',
+              row.cells[4].data, // 'ID Dokter',
+              row.cells[5].data, // 'Dokter',
             ),
           },
           'Pilih',
@@ -85,22 +87,17 @@ class AnamnesisTable extends HTMLElement {
     createTable('table-data', columns, data, { search: true });
   }
 
-  _actionHandler(noRawat, noRM, nama, dokter) {
+  _actionHandler(noRawat, noRM, nama, idDokter, namaDokter) {
+    // send data to form
     this.querySelector('anamnesis-form').form = {
       noRawat,
       noRM,
       nama,
-      dokter,
+      idDokter,
+      namaDokter,
     };
-    this._openModal();
-  }
 
-  _openModal() {
     this.form.show();
-  }
-
-  _closeModal() {
-    this.form.hide();
   }
 }
 

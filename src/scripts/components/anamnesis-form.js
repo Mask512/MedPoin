@@ -8,7 +8,15 @@ class AnamnesisForm extends HTMLElement {
     this.querySelector('#nama').value = data.nama;
     this.querySelector('#no-rm').value = data.noRM;
     this.querySelector('#no-rawat').value = data.noRawat;
-    this.querySelector('#dokter').value = data.dokter;
+    this.querySelector('#dokter').dataset.id = data.idDokter;
+    const dokterInput = this.querySelector('#dokter');
+    dokterInput.dataset.id = data.idDokter;
+    dokterInput.value = data.namaDokter;
+  }
+
+  set nurses(nurses) {
+    this._nursesList = nurses.map((nurse) => `<option value="${nurse.id}">${nurse.name}</option>`);
+    this.querySelector('#perawat').innerHTML += this._nursesList;
   }
 
   render() {
@@ -125,25 +133,23 @@ class AnamnesisForm extends HTMLElement {
         class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
         >Perawat</label
       >
-      <select
+      <select      
         id="perawat"
         class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+        required
       >
-        <option selected="">Pilih</option>
-        <option value="1">Perawat A</option>
-        <option value="2">Perawat B</option>
-        <option value="3">Perawat C</option>
-        <option value="4">Perawat D</option>
+        <option disabled selected value="">Pilih</option>
+        
       </select>
     </div>
     <div>
       <label
         for="berat"
         class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
-        >Berat Badan</label
+        >Berat Badan (kg)</label
       >
       <input
-        type="text"
+        type="number"
         name="berat"
         id="berat"
         class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
@@ -156,26 +162,27 @@ class AnamnesisForm extends HTMLElement {
       <label
         for="tinggi"
         class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
-        >Tinggi Badan</label
+        >Tinggi Badan (cm)</label
       >
       <input
-        type="text"
+        type="number"
         name="tinggi"
         id="tinggi"
         class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
         placeholder=""
         value=""
         required=""
+        max="300"
       />
     </div>
     <div>
       <label
         for="tensi"
         class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
-        >Tensi Darah</label
+        >Tensi Darah (mmHg)</label
       >
       <input
-        type="text"
+        type="number"
         name="tensi"
         id="tensi"
         class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
@@ -188,32 +195,34 @@ class AnamnesisForm extends HTMLElement {
       <label
         for="saturasi"
         class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
-        >Saturasi Oksigen</label
+        >Saturasi Oksigen (%)</label
       >
       <input
-        type="text"
+        type="number"
         name="saturasi"
         id="saturasi"
         class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
         placeholder=""
         value=""
         required=""
+        max="100"
       />
     </div>
     <div>
       <label
         for="suhu"
         class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
-        >Suhu Badan</label
+        >Suhu Badan (°C)</label
       >
       <input
-        type="text"
+        type="number"
         name="suhu"
         id="suhu"
         class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
         placeholder=""
         value=""
         required=""
+        max="50"
       />
     </div>
     <div class="flex flex-wrap gap-4 sm:col-span-2">
@@ -244,7 +253,7 @@ class AnamnesisForm extends HTMLElement {
     const formData = {};
 
     formElements.forEach((element) => {
-      formData[element.id] = element.value;
+      formData[element.id] = element.dataset.id !== undefined ? element.dataset.id : element.value;
     });
 
     console.log('Form Data:', formData);
