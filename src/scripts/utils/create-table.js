@@ -25,6 +25,7 @@ const createTable = (tableId, columns, data, options = {}) => {
   });
 
   grid.render(document.getElementById(tableId));
+  return grid;
 };
 
 export default createTable;
