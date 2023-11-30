@@ -14,16 +14,16 @@ const UrlParser = {
     const urlsSplits = url.split('/');
     return {
       resource: urlsSplits[1] || null,
-      id: urlsSplits[2] || null,
-      verb: urlsSplits[3] || null,
+      sub: urlsSplits[2] || null,
+      id: urlsSplits[3] || null,
     };
   },
 
   _urlCombiner(splitedUrl) {
     return (
       (splitedUrl.resource ? `/${splitedUrl.resource}` : '/')
+      + (splitedUrl.sub ? `/${splitedUrl.sub}` : '')
       + (splitedUrl.id ? '/:id' : '')
-      + (splitedUrl.verb ? `/${splitedUrl.verb}` : '')
     );
   },
 };
