@@ -261,7 +261,7 @@ class RegistrationForm extends HTMLElement {
     const formData = {};
 
     formElements.forEach((element) => {
-      formData[element.id] = element.value;
+      formData[element.name] = element.value;
     });
 
     console.log('Form Data:', formData);
