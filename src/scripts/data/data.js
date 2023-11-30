@@ -19,6 +19,11 @@ class DATA {
     return response.json();
   }
 
+  static async getAdmins() {
+    const response = await fetch(API_ENDPOINT.ADMIN);
+    return response.json();
+  }
+
   static async dashboard() {
     const response = await fetch(API_ENDPOINT.DASHBOARD);
     return response.json();

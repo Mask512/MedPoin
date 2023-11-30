@@ -9,6 +9,7 @@ if (process.env.APP_ENV === 'production') {
     DOCTORS: `${CONFIG.BASE_URL}dokter.json?key=${CONFIG.API_KEY}`,
     NURSES: `${CONFIG.BASE_URL}perawat.json?key=${CONFIG.API_KEY}`,
     DASHBOARD: `${CONFIG.BASE_URL}dashboard.json?key=${CONFIG.API_KEY}`,
+    ADMIN: `${CONFIG.BASE_URL}admin`,
   };
 } else {
   API_ENDPOINT = {
@@ -16,6 +17,7 @@ if (process.env.APP_ENV === 'production') {
     DOCTORS: `${CONFIG.BASE_URL}dokter`,
     NURSES: `${CONFIG.BASE_URL}perawat`,
     DASHBOARD: `${CONFIG.BASE_URL}dashboard`,
+    ADMIN: `${CONFIG.BASE_URL}admin`,
   };
 }
 
