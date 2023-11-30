@@ -1,5 +1,6 @@
 import DATA from '../../data/data';
 import '../../components/anamnesis-table';
+import showAlert from '../../utils/show-alert';
 
 const Anamnesis = {
   async render() {
@@ -7,14 +8,30 @@ const Anamnesis = {
   },
 
   async afterRender() {
-    const data = await DATA.dashboard();
-    const tableData = data
-      .filter((patient) => !patient.status)
-      .map((patient) => [
-        patient.no_antrian, patient.no_rawat, patient.no_rm, patient.nama, patient.nama_dokter]);
+    try {
+      const tableData = async () => {
+        const dashboardData = await DATA.dashboard();
+        const filteredData = dashboardData.filter((patient) => !patient.status);
 
-    const anamnesisTable = document.querySelector('anamnesis-table');
-    anamnesisTable.data = tableData;
+        return filteredData.map((patient) => [
+          patient.no_antrian,
+          patient.no_rawat,
+          patient.no_rm,
+          patient.nama,
+          patient.id_dokter,
+          patient.nama_dokter,
+        ]);
+      };
+
+      const anamnesisTable = document.querySelector('anamnesis-table');
+      anamnesisTable.data = tableData;
+
+      const nurses = await DATA.getNurses();
+      const anamnesisForm = document.querySelector('anamnesis-form');
+      anamnesisForm.nurses = nurses;
+    } catch (error) {
+      showAlert.error(error.message);
+    }
   },
 };
 

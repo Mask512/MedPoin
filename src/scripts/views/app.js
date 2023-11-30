@@ -9,8 +9,8 @@ class App {
   }
 
   _getTitleFromMenuList(url) {
-    const { item } = menuList.find((menu) => menu.link === url) || {};
-    return item || '';
+    const { title } = menuList.find((menu) => menu.link === url) || {};
+    return title;
   }
 
   async renderPage() {

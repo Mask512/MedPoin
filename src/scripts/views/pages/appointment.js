@@ -2,7 +2,7 @@ import '../../components/appointment-form';
 import '../../components/patient-list';
 import DATA from '../../data/data';
 
-const Rawat = {
+const Appointment = {
   async render() {
     return `
     <appointment-form></appointment-form>
@@ -14,20 +14,23 @@ const Rawat = {
       const appointmentForm = document.querySelector('appointment-form');
       appointmentForm.data = await DATA.getDoctors();
 
-      const patients = await DATA.getPatients();
-      const patientsData = patients.map((patient) => [
-        patient.no_rm,
-        patient.nama,
-        patient.alamat,
-        patient.no_hp,
-      ]);
+      const tableData = async () => {
+        const patients = await DATA.getPatients();
+        const patientsData = patients.map((patient) => [
+          patient.no_rm,
+          patient.nama,
+          patient.alamat,
+          patient.no_hp,
+        ]);
+        return patientsData;
+      };
 
       const patientList = document.querySelector('patient-list');
-      patientList.data = patientsData;
+      patientList.data = tableData;
     } catch (error) {
-      console.log(error);
+      console.log(error.message);
     }
   },
 };
 
-export default Rawat;
+export default Appointment;

@@ -12,25 +12,34 @@ const Dashboard = {
 
   async afterRender() {
     try {
-      const data = await DATA.dashboard();
-      const total = data.length;
-      const terlayani = data.filter((obj) => obj.status).length;
-      const patientCards = document.querySelector('patient-cards');
-      patientCards.data = { total, terlayani };
-      patientCards.setAttribute('loading', 'false');
+      const updatePatientCards = (total, terlayani) => {
+        const patientCards = document.querySelector('patient-cards');
+        patientCards.data = { total, terlayani };
+        patientCards.setAttribute('loading', 'false');
+      };
 
-      const patientData = data.map((patient) => [
-        patient.no_antrian,
-        patient.no_rawat,
-        patient.no_rm,
-        patient.nama,
-        patient.tanggal_pendaftaran,
-        patient.status ? 'Terlayani' : 'Belum Terlayani',
-        patient.nama_dokter,
-      ]);
+      const tableData = async () => {
+        const data = await DATA.dashboard();
+        const total = data.length;
+        const terlayani = data.filter((obj) => obj.status).length;
+
+        updatePatientCards(total, terlayani);
+
+        const patientData = data.map((patient) => [
+          patient.no_antrian,
+          patient.no_rawat,
+          patient.no_rm,
+          patient.nama,
+          patient.tanggal_pendaftaran,
+          patient.status ? 'Terlayani' : 'Belum Terlayani',
+          patient.nama_dokter,
+        ]);
+
+        return patientData;
+      };
 
       const patientHistory = document.querySelector('patient-history');
-      patientHistory.data = patientData;
+      patientHistory.data = tableData;
     } catch (error) {
       console.log(error.message);
     }

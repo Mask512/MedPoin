@@ -1,37 +1,37 @@
 const menuList = [
   {
     icon: 'analytics',
-    item: 'Dashboard',
+    title: 'Dashboard',
     link: '/',
   },
   {
     icon: 'how_to_reg',
-    item: 'Registrasi Pasien',
-    link: '/registrasi',
+    title: 'Registrasi Pasien',
+    link: '/registration',
   },
   {
     icon: 'assignment_add',
-    item: 'Registrasi Rawat',
-    link: '/rawat',
+    title: 'Registrasi Rawat',
+    link: '/appointment',
   },
   {
     icon: 'clinical_notes',
-    item: 'Anamnesis',
+    title: 'Anamnesis',
     link: '/anamnesis',
   },
   {
     icon: 'stethoscope',
-    item: 'Pemeriksaan Dokter',
-    link: '/pemeriksaan',
+    title: 'Pemeriksaan Dokter',
+    link: '/checkup',
   },
   {
     icon: 'medical_information',
-    item: 'Riwayat Medis',
-    link: '/rekam-medis',
+    title: 'Riwayat Medis',
+    link: '/medical-records',
   },
   {
     icon: 'manage_accounts',
-    item: 'Master',
+    title: 'Master',
     link: '/master',
   },
 ];
