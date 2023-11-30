@@ -1,7 +1,7 @@
-const RekamMedis = {
+const MedicalRecords = {
   async render() {
     return 'halo from rekam-medis';
   },
 };
 
-export default RekamMedis;
+export default MedicalRecords;

@@ -1,6 +1,6 @@
 import '../../components/registration-form';
 
-const Registrasi = {
+const Registration = {
   async render() {
     return `
     <registration-form></registration-form>
@@ -8,4 +8,4 @@ const Registrasi = {
   },
 };
 
-export default Registrasi;
+export default Registration;

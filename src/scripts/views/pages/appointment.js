@@ -2,7 +2,7 @@ import '../../components/appointment-form';
 import '../../components/patient-list';
 import DATA from '../../data/data';
 
-const Rawat = {
+const Appointment = {
   async render() {
     return `
     <appointment-form></appointment-form>
@@ -33,4 +33,4 @@ const Rawat = {
   },
 };
 
-export default Rawat;
+export default Appointment;
