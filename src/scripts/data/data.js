@@ -1,9 +1,6 @@
 import API_ENDPOINT from '../configs/api-endpoint';
-import APP_CONFIG from '../configs/config';
 
 class DATA {
-  static API_KEY = APP_CONFIG.API_KEY;
-
   static async getPatients() {
     const response = await fetch(API_ENDPOINT.PATIENTS);
     return response.json();

@@ -26,7 +26,7 @@ module.exports = merge(common, {
   },
   plugins: [
     new MiniCssExtractPlugin({
-      filename: 'main.prod.css',
+      filename: '[name].prod.css',
     }),
     new Dotenv({
       systemvars: true,
