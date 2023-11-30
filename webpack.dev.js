@@ -23,7 +23,7 @@ module.exports = merge(common, {
   },
   plugins: [
     new MiniCssExtractPlugin({
-      filename: 'main.dev.css',
+      filename: '[name].dev.css',
     }),
     new Dotenv({
       path: '.env.development'
