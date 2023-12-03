@@ -27,7 +27,7 @@ class PatientCards extends HTMLElement {
 
   renderCard(title, value, cardColor) {
     return `
-      <div class="flex-auto sm:flex-none grid grid-cols-[2fr_1fr] grid-rows-2 place-items-start rounded-md p-4 font-semibold text-gray-700 ring-1 ring-gray-400 dark:bg-gray-800 dark:text-gray-300 ${cardColor}">
+      <div class="flex-auto sm:flex-none grid grid-cols-[2fr_1fr] grid-rows-2 place-items-start rounded-md p-4 font-semibold text-gray-700 ring-1 ring-gray-200 dark:ring-gray-700 dark:bg-gray-800 dark:text-gray-300 ${cardColor}">
         <h3 class="text-xl">${title}</h3>
         <p class="col-start-1 row-start-2 text-4xl">${value || ''}</p>
         <span class="material-symbols-outlined col-start-2 row-span-3 text-7xl">

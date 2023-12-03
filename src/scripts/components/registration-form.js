@@ -17,7 +17,7 @@ class RegistrationForm extends HTMLElement {
 
   render() {
     this.innerHTML = `
-    <form class="mb-4 rounded-md p-4 ring-1 ring-gray-400">
+    <form class="mb-4 rounded-md p-4 ring-1 ring-gray-200 dark:ring-gray-700">
       <h3 class="mb-4 text-2xl underline underline-offset-8 font-semibold text-gray-800 dark:text-white">
         Registrasi Pasien Baru
       </h3>
