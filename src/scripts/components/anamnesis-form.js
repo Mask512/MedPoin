@@ -1,14 +1,20 @@
 class AnamnesisForm extends HTMLElement {
-  connectedCallback() {
-    this.render();
-    this.addEventListeners();
+  constructor() {
+    super();
+    this.classList.add('fixed', 'left-0', 'top-0', 'z-50', 'hidden', 'h-[calc(100%-1rem)]', 'max-h-full', 'w-full', 'overflow-y-auto', 'overflow-x-hidden', 'p-4', 'md:inset-0');
+    this.setAttribute('tabindex', '-1');
+    this.setAttribute('aria-hidden', 'true');
   }
 
-  set form(data) {
+  connectedCallback() {
+    this.render();
+    this._addEventListeners();
+  }
+
+  set data(data) {
     this.querySelector('#nama').value = data.nama;
     this.querySelector('#no-rm').value = data.noRM;
     this.querySelector('#no-rawat').value = data.noRawat;
-    this.querySelector('#dokter').dataset.id = data.idDokter;
     const dokterInput = this.querySelector('#dokter');
     dokterInput.dataset.id = data.idDokter;
     dokterInput.value = data.namaDokter;
@@ -227,22 +233,22 @@ class AnamnesisForm extends HTMLElement {
     </div>
     <div class="flex flex-wrap gap-4 sm:col-span-2">
         <button
+          type="reset"
+          class="uppercase flex-1 rounded-lg bg-red-500 px-5 py-3 text-center text-sm font-medium text-white hover:bg-gray-800 focus:outline-none focus:ring-4 focus:ring-blue-500 dark:hover:bg-gray-700 dark:focus:ring-blue-500 sm:w-fit"
+        >
+          Reset
+        </button>
+        <button
           type="submit"
           class="uppercase flex-1 rounded-lg bg-blue-500 px-5 py-3 text-center text-sm font-medium text-white hover:bg-gray-800 focus:outline-none focus:ring-4 focus:ring-blue-500 dark:hover:bg-gray-700 dark:focus:ring-blue-500 sm:w-fit"
         >
           Submit
         </button>
-        <button
-          type="reset"
-          class="uppercase flex-1 rounded-lg bg-green-700 px-5 py-3 text-center text-sm font-medium text-white hover:bg-gray-800 focus:outline-none focus:ring-4 focus:ring-blue-500 dark:hover:bg-gray-700 dark:focus:ring-blue-500 sm:w-fit"
-        >
-          Reset
-        </button>
     </div>
     `;
   }
 
-  addEventListeners() {
+  _addEventListeners() {
     const form = this.querySelector('form');
     form.addEventListener('submit', this._handleSubmit.bind(this));
   }
@@ -257,6 +263,13 @@ class AnamnesisForm extends HTMLElement {
     });
 
     console.log('Form Data:', formData);
+  }
+
+  clearInput() {
+    this.querySelectorAll('input').forEach((input) => {
+      // eslint-disable-next-line no-param-reassign
+      input.value = '';
+    });
   }
 }
 

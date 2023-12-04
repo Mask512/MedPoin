@@ -6,6 +6,8 @@ const API_ENDPOINT = {
   NURSES: `${CONFIG.BASE_URL}perawat`,
   DASHBOARD: `${CONFIG.BASE_URL}dashboard`,
   ADMIN: `${CONFIG.BASE_URL}admin`,
+  ICD9: `${CONFIG.BASE_URL}icd9`,
+  ICD10: `${CONFIG.BASE_URL}icd10`,
 };
 
 export default API_ENDPOINT;

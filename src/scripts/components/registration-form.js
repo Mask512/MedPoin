@@ -17,7 +17,7 @@ class RegistrationForm extends HTMLElement {
 
   render() {
     this.innerHTML = `
-    <form class="mb-4 rounded-md p-4 ring-1 ring-gray-400">
+    <form class="mb-4 rounded-md p-4 ring-1 ring-gray-200 dark:ring-gray-700">
       <h3 class="mb-4 text-2xl underline underline-offset-8 font-semibold text-gray-800 dark:text-white">
         Registrasi Pasien Baru
       </h3>
@@ -225,16 +225,16 @@ class RegistrationForm extends HTMLElement {
       </div>
       <div class="flex flex-wrap gap-4">
         <button
+          type="reset"
+          class="uppercase flex-1 rounded-lg bg-red-500 px-5 py-3 text-center text-sm font-medium text-white hover:bg-gray-800 focus:outline-none focus:ring-4 focus:ring-blue-500 dark:hover:bg-gray-700 dark:focus:ring-blue-500 sm:w-fit"
+        >
+          Reset
+        </button>
+        <button
           type="submit"
           class="uppercase flex-1 rounded-lg bg-blue-500 px-5 py-3 text-center text-sm font-medium text-white hover:bg-gray-800 focus:outline-none focus:ring-4 focus:ring-blue-500 dark:hover:bg-gray-700 dark:focus:ring-blue-500 sm:w-fit"
         >
           Submit
-        </button>
-        <button
-          type="reset"
-          class="uppercase flex-1 rounded-lg bg-green-700 px-5 py-3 text-center text-sm font-medium text-white hover:bg-gray-800 focus:outline-none focus:ring-4 focus:ring-blue-500 dark:hover:bg-gray-700 dark:focus:ring-blue-500 sm:w-fit"
-        >
-          Reset
         </button>
       </div>
     </form>
