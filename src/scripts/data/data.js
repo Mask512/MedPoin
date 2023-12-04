@@ -25,6 +25,16 @@ class DATA {
     const response = await fetch(API_ENDPOINT.DASHBOARD);
     return response.json();
   }
+
+  static async icd9() {
+    const response = await fetch(API_ENDPOINT.ICD9);
+    return response.json();
+  }
+
+  static async icd10() {
+    const response = await fetch(API_ENDPOINT.ICD10);
+    return response.json();
+  }
 }
 
 export default DATA;
