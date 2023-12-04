@@ -22,7 +22,7 @@ const menuList = [
   {
     icon: 'stethoscope',
     title: 'Pemeriksaan Dokter',
-    link: '/checkup',
+    link: '/exam',
   },
   {
     icon: 'medical_information',
