@@ -8,6 +8,8 @@ const API_ENDPOINT = {
   ADMIN: `${CONFIG.BASE_URL}admin`,
   ICD9: `${CONFIG.BASE_URL}icd9`,
   ICD10: `${CONFIG.BASE_URL}icd10`,
+  SIGN_IN: `${CONFIG.BASE_URL}signin`,
+  SIGN_OUT: `${CONFIG.BASE_URL}signout`,
 };
 
 export default API_ENDPOINT;
