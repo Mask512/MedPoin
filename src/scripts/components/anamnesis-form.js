@@ -1,7 +1,23 @@
+import DATA from '../data/data';
+import showAlert from '../utils/show-alert';
+
 class AnamnesisForm extends HTMLElement {
   constructor() {
     super();
-    this.classList.add('fixed', 'left-0', 'top-0', 'z-50', 'hidden', 'h-[calc(100%-1rem)]', 'max-h-full', 'w-full', 'overflow-y-auto', 'overflow-x-hidden', 'p-4', 'md:inset-0');
+    this.classList.add(
+      'fixed',
+      'left-0',
+      'top-0',
+      'z-50',
+      'hidden',
+      'h-[calc(100%-1rem)]',
+      'max-h-full',
+      'w-full',
+      'overflow-y-auto',
+      'overflow-x-hidden',
+      'p-4',
+      'md:inset-0',
+    );
     this.setAttribute('tabindex', '-1');
     this.setAttribute('aria-hidden', 'true');
   }
@@ -13,15 +29,17 @@ class AnamnesisForm extends HTMLElement {
 
   set data(data) {
     this.querySelector('#nama').value = data.nama;
-    this.querySelector('#no-rm').value = data.noRM;
-    this.querySelector('#no-rawat').value = data.noRawat;
+    this.querySelector('#no_rm').value = data.noRM;
+    this.querySelector('#no_rawat').value = data.noRawat;
     const dokterInput = this.querySelector('#dokter');
     dokterInput.dataset.id = data.idDokter;
     dokterInput.value = data.namaDokter;
   }
 
   set nurses(nurses) {
-    this._nursesList = nurses.map((nurse) => `<option value="${nurse.id}">${nurse.name}</option>`);
+    this._nursesList = nurses.map(
+      (nurse) => `<option value="${nurse.id}">${nurse.nama}</option>`,
+    );
     this.querySelector('#perawat').innerHTML += this._nursesList;
   }
 
@@ -84,14 +102,14 @@ class AnamnesisForm extends HTMLElement {
     </div>
     <div>
       <label
-        for="no-rm"
+        for="no_rm"
         class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
         >Nomor Rekam Medis</label
       >
       <input
         type="text"
-        name="no-rm"
-        id="no-rm"
+        name="no_rm"
+        id="no_rm"
         class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
         placeholder=""
         value=""
@@ -101,14 +119,14 @@ class AnamnesisForm extends HTMLElement {
     </div>
     <div>
       <label
-        for="no-rawat"
+        for="no_rawat"
         class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
         >Nomor Rawat</label
       >
       <input
         type="text"
-        name="no-rawat"
-        id="no-rawat"
+        name="no_rawat"
+        id="no_rawat"
         class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
         placeholder=""
         value=""
@@ -253,16 +271,31 @@ class AnamnesisForm extends HTMLElement {
     form.addEventListener('submit', this._handleSubmit.bind(this));
   }
 
-  _handleSubmit(event) {
+  async _handleSubmit(event) {
     event.preventDefault();
-    const formElements = this.querySelectorAll('input, select, textarea');
-    const formData = {};
+    const formData = {
+      nama: this.querySelector('#nama').value,
+      no_rm: this.querySelector('#no_rm').value,
+      no_rawat: this.querySelector('#no_rawat').value,
+      dokter_id: this.querySelector('#dokter').dataset.id,
+      perawat_id: this.querySelector('#perawat').value,
+      berat: this.querySelector('#berat').value,
+      tinggi: this.querySelector('#tinggi').value,
+      tensi: this.querySelector('#tensi').value,
+      saturasi: this.querySelector('#saturasi').value,
+      suhu: this.querySelector('#suhu').value,
+    };
 
-    formElements.forEach((element) => {
-      formData[element.id] = element.dataset.id !== undefined ? element.dataset.id : element.value;
-    });
-
-    console.log('Form Data:', formData);
+    try {
+      const response = await DATA.anamnesis(formData);
+      if (response.error) {
+        throw new Error(response.message);
+      }
+      showAlert.success('Data berhasil disimpan.');
+    } catch (error) {
+      const message = error.message === 'Credential taken' ? 'Data sudah pernah disimpan' : error.message;
+      showAlert.error(message);
+    }
   }
 
   clearInput() {

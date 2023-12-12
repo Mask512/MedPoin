@@ -1,3 +1,6 @@
+import DATA from '../data/data';
+import showAlert from '../utils/show-alert';
+
 class NurseForm extends HTMLElement {
   connectedCallback() {
     this.render();
@@ -8,11 +11,11 @@ class NurseForm extends HTMLElement {
     <h3 class="text-3xl font-extrabold mb-4">Tambah Perawat Baru</h3>
     <form class="flex flex-col gap-4 rounded-md md:max-w-4xl md:flex-row">
       <div>
-        <label for="nurse-id" class="mb-2 block text-sm font-medium text-gray-900 dark:text-white">ID Perawat</label>
+        <label for="id" class="mb-2 block text-sm font-medium text-gray-900 dark:text-white">ID Perawat</label>
         <input
           type="text"
-          name="nurse_id"
-          id="nurse-id"
+          name="id"
+          id="id"
           class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
           placeholder=""
           value=""
@@ -21,13 +24,13 @@ class NurseForm extends HTMLElement {
       </div>
       <div>
         <label
-          for="nurse-name" class="mb-2 block text-sm font-medium text-gray-900 dark:text-white">
+          for="nama" class="mb-2 block text-sm font-medium text-gray-900 dark:text-white">
           Nama Perawat
         </label>
         <input
           type="text"
-          name="nurse_name"
-          id="nurse-name"
+          name="nama"
+          id="nama"
           class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
           placeholder=""
           value=""
@@ -53,16 +56,21 @@ class NurseForm extends HTMLElement {
     );
   }
 
-  _handleSubmit(event) {
+  async _handleSubmit(event) {
     event.preventDefault();
-    const formElements = this.querySelectorAll('input');
-    const formData = {};
+    const id = String(this.querySelector('#id').value);
+    const nama = String(this.querySelector('#nama').value);
 
-    formElements.forEach((element) => {
-      formData[element.name] = element.value;
-    });
+    try {
+      const response = await DATA.registerNurse(id, nama);
+      if (response.error) {
+        throw new Error(response.message);
+      }
 
-    console.log('Form Data:', formData);
+      showAlert.success('Data berhasil ditambahkan');
+    } catch (error) {
+      showAlert.toast(error.message, { icon: 'warning' });
+    }
   }
 }
 

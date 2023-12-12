@@ -1,3 +1,5 @@
+import DATA from '../data/data';
+import showAlert from '../utils/show-alert';
 import menuList from '../views/menu-list';
 
 class SideBar extends HTMLElement {
@@ -67,13 +69,14 @@ class SideBar extends HTMLElement {
     clickedItem.classList.add('active');
   }
 
-  _handleLogout(e) {
+  async _handleLogout(e) {
     e.preventDefault();
-
-    localStorage.removeItem('username');
-    localStorage.removeItem('password');
-
-    window.location.href = '/login.html?fromLogout=true';
+    const response = await DATA.signOut();
+    if (!response.error) {
+      localStorage.clear();
+      window.location.href = '/login.html?fromLogout=true';
+    }
+    showAlert.toast(`Log out failed | ${response.message}`, { icon: 'error' });
   }
 }
 

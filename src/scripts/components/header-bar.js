@@ -2,7 +2,7 @@ import './digital-clock';
 import './toggle-darkmode';
 import APP_CONFIG from '../configs/config';
 
-const userName = localStorage.getItem('id') || 'user';
+const userName = localStorage.getItem('nama') || 'user';
 
 class Navbar extends HTMLElement {
   connectedCallback() {

@@ -1,6 +1,7 @@
 import DATA from '../../data/data';
 import '../../components/doctor-form';
 import '../../components/employee-table';
+import showAlert from '../../utils/show-alert';
 
 const MasterDoctors = {
   async render() {
@@ -12,16 +13,30 @@ const MasterDoctors = {
   },
 
   async afterRender() {
+    const table = document.querySelector('employee-table');
+    const columns = ['id', 'Nama', 'Spesialis'];
+    let getData;
     try {
-      const tableData = async () => {
-        const doctors = await DATA.getDoctors();
-        return doctors.map((doctor) => [doctor.id, doctor.name, doctor.speciality]);
+      getData = async () => {
+        const response = await DATA.getDoctors();
+        if (response.error) {
+          throw new Error(response.message);
+        }
+        return response.data.map((doctor) => [doctor.id, doctor.nama, doctor.spesialis]);
       };
-      const columns = ['id', 'Nama', 'Spesialis'];
-      document.querySelector('employee-table').data = { columns, data: tableData };
+
+      table.data = { columns, data: getData };
     } catch (error) {
-      console.log(error.message);
+      showAlert.error(error.message);
     }
+
+    document
+      .querySelector('doctor-form form')
+      .addEventListener('submit', async () => {
+        table.updateTable({
+          data: await getData,
+        });
+      });
   },
 };
 

@@ -2,6 +2,8 @@ import { initFlowbite } from 'flowbite';
 import './icd9-table';
 import './icd10-table';
 import showAlert from '../utils/show-alert';
+import { calculateAge } from '../utils/date';
+import DATA from '../data/data';
 
 class ExamForm extends HTMLElement {
   static observedAttributes = ['loading'];
@@ -9,21 +11,17 @@ class ExamForm extends HTMLElement {
   constructor() {
     super();
     this.setAttribute('loading', 'true');
+    this.patientData = null;
   }
 
   connectedCallback() {
     this.render();
   }
 
-  // set data(data) {
-  //   this.querySelector('#nama').value = data.nama;
-  //   this.querySelector('#no-rm').value = data.noRM;
-  //   this.querySelector('#no-rawat').value = data.noRawat;
-  //   this.querySelector('#dokter').dataset.id = data.idDokter;
-  //   const dokterInput = this.querySelector('#dokter');
-  //   dokterInput.dataset.id = data.idDokter;
-  //   dokterInput.value = data.namaDokter;
-  // }
+  set data(data) {
+    this.patientData = data;
+    this.hideLoading();
+  }
 
   render() {
     this.innerHTML = `
@@ -66,43 +64,53 @@ class ExamForm extends HTMLElement {
   }
 
   renderPatientData() {
+    const {
+      name: nama,
+      no_rm: noRM,
+      no_rawat: noRawat,
+      tanggal_lahir: tanggalLahir,
+      berat,
+      tinggi,
+      tensi,
+      suhu,
+    } = this.patientData;
     return `
       <div class="grid grid-cols-[max-content_auto] gap-1">
         <span
           class="text-gray-900 dark:text-white"
           >Nama Pasien</span
         >
-        <span class="before:content-[':']"> Rick Eriksson / RM-000013</span>
+        <span class="before:content-[':']"> ${nama} / ${noRM}</span>
         <span
           class="text-gray-900 dark:text-white"
           >No Rawat</span
         >
-        <span class="before:content-[':']"> RJ-12-31-2022-11</span>
+        <span class="before:content-[':']"> ${noRawat}</span>
         <span
           class="text-gray-900 dark:text-white"
           >Usia</span
         >
-        <span class="before:content-[':']"> 32 Tahun 19 hari</span>
+        <span class="before:content-[':']"> ${calculateAge(tanggalLahir)}</span>
         <span
           class="text-gray-900 dark:text-white"
           >Berat Badan</span
         >
-        <span class="before:content-[':']"> 80 kg</span>
+        <span class="before:content-[':']"> ${berat} kg</span>
         <span
           class="text-gray-900 dark:text-white"
           >Tinggi Badan</span
         >
-        <span class="before:content-[':']"> 175 cm</span>
+        <span class="before:content-[':']"> ${tinggi} cm</span>
         <span
           class="text-gray-900 dark:text-white"
           >Tensi Darah</span
         >
-        <span class="before:content-[':']"> 120/80 mmHg</span>
+        <span class="before:content-[':']"> ${tensi} mmHg</span>
         <span
           class="text-gray-900 dark:text-white"
           >Suhu Badan</span
         >
-        <span class="before:content-[':']"> 36&#176;c</span>
+        <span class="before:content-[':']"> ${suhu}&#176;c</span>
       </div>
     `;
   }
@@ -193,10 +201,18 @@ class ExamForm extends HTMLElement {
     form.addEventListener('submit', this._handleSubmit.bind(this));
   }
 
-  _handleSubmit(event) {
+  async _handleSubmit(event) {
     event.preventDefault();
-    const formElements = this.querySelectorAll('form input, form textarea');
-    const formData = {};
+    const formElements = event.currentTarget.querySelectorAll('input, textarea');
+    const formData = {
+      no_rm: this.patientData.no_rm,
+      no_rawat: this.patientData.no_rawat,
+      dokter_id: this.patientData.dokter_id,
+      keluhan: this.querySelector('#keluhan').value,
+      tindakan: this.querySelector('#tindakan').dataset.id,
+      diagnosis: this.querySelector('#diagnosis').dataset.id,
+      resep_obat: this.querySelector('#resep_obat').value,
+    };
 
     let isFormValid = true;
 
@@ -204,15 +220,23 @@ class ExamForm extends HTMLElement {
       if (!element.value && !element.dataset.id) {
         isFormValid = false;
       }
-
-      formData[element.id] = element.dataset.id !== undefined ? element.dataset.id : element.value;
     });
 
     if (isFormValid) {
-      console.log('Form Data:', formData);
-      this.clearInput();
+      try {
+        const response = await DATA.exam(formData);
+        if (response.error) {
+          throw new Error(response.message);
+        }
+        showAlert.success(`${this.patientData.name} selesai di periksa`);
+        this.clearInput();
+      } catch (error) {
+        showAlert.error(error.message);
+      }
     } else {
-      showAlert.toast('Mohon isi seluruh form sebelum submit', { icon: 'warning' });
+      showAlert.toast('Mohon isi seluruh form sebelum submit', {
+        icon: 'warning',
+      });
     }
   }
 
