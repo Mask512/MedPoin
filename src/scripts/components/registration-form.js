@@ -310,7 +310,6 @@ class RegistrationForm extends HTMLElement {
         || element.type === 'textarea'
         || element.tagName === 'SELECT'
       ) {
-        // eslint-disable-next-line no-param-reassign
         element.value = '';
       }
     });

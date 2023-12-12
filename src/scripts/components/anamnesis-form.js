@@ -300,7 +300,6 @@ class AnamnesisForm extends HTMLElement {
 
   clearInput() {
     this.querySelectorAll('input').forEach((input) => {
-      // eslint-disable-next-line no-param-reassign
       input.value = '';
     });
   }

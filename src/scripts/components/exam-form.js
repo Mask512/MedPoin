@@ -242,7 +242,6 @@ class ExamForm extends HTMLElement {
 
   clearInput() {
     this.querySelectorAll('input, textarea').forEach((input) => {
-      // eslint-disable-next-line no-param-reassign
       input.value = '';
     });
   }
