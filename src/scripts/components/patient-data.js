@@ -110,7 +110,7 @@ class PatientData extends HTMLElement {
           class="flex h-full min-h-[12rem] w-full items-center justify-center rounded bg-gray-300 dark:bg-gray-700 sm:w-96 md:w-72"
         >
         <svg
-          class="h-10 w-10 text-gray-200 dark:text-gray-600"
+          class="h-[12rem] w-[12rem] text-gray-200 dark:text-gray-600"
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           fill="currentColor"
@@ -121,7 +121,7 @@ class PatientData extends HTMLElement {
           />
         </svg>
       </div>
-      <div class="flex w-full flex-col gap-4">
+      <div class="flex w-full flex-col">
         <div class="top">
           <p class="text-xl font-extrabold">${name}</p>
           <p class="font-bold italic">${noRM}</p>
