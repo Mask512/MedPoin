@@ -1,3 +1,6 @@
+import DATA from '../data/data';
+import showAlert from '../utils/show-alert';
+
 class AdminForm extends HTMLElement {
   connectedCallback() {
     this.render();
@@ -9,14 +12,14 @@ class AdminForm extends HTMLElement {
     <form class="flex flex-col gap-4 rounded-md md:max-w-4xl md:flex-row">
       <div>
         <label
-          for="admin-id"
+          for="id"
           class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
           >ID Admin</label
         >
         <input
           type="text"
-          name="admin_id"
-          id="admin-id"
+          name="id"
+          id="id"
           class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
           placeholder=""
           value=""
@@ -25,14 +28,14 @@ class AdminForm extends HTMLElement {
       </div>
       <div>
         <label
-          for="admin-name"
+          for="nama"
           class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
           >Nama Admin</label
         >
         <input
           type="text"
-          name="admin_name"
-          id="admin-name"
+          name="nama"
+          id="nama"
           class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
           placeholder=""
           value=""
@@ -58,16 +61,22 @@ class AdminForm extends HTMLElement {
     this.querySelector('form').addEventListener('submit', this._handleSubmit.bind(this));
   }
 
-  _handleSubmit(event) {
+  async _handleSubmit(event) {
     event.preventDefault();
-    const formElements = this.querySelectorAll('input');
-    const formData = {};
 
-    formElements.forEach((element) => {
-      formData[element.name] = element.value;
-    });
+    const id = String(this.querySelector('#id').value);
+    const nama = String(this.querySelector('#nama').value);
 
-    console.log('Form Data:', formData);
+    try {
+      const response = await DATA.registerAdmin(id, nama);
+      if (response.error) {
+        throw new Error(response.message);
+      }
+
+      showAlert.success('Data berhasil ditambahkan');
+    } catch (error) {
+      showAlert.toast(error.message, { icon: 'warning' });
+    }
   }
 }
 

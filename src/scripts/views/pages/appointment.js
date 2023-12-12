@@ -10,16 +10,24 @@ const Appointment = {
     `;
   },
   async afterRender() {
+    const appointmentForm = document.querySelector('appointment-form');
     try {
-      const appointmentForm = document.querySelector('appointment-form');
-      appointmentForm.data = await DATA.getDoctors();
+      const response = await DATA.getDoctors();
+      if (response.error) {
+        throw new Error(response.message);
+      }
+      const doctors = response.data;
+      appointmentForm.data = doctors;
 
       const tableData = async () => {
-        const patients = await DATA.getPatients();
-        const patientsData = patients.map((patient) => [
+        const res = await DATA.getPatients();
+        if (res.error) {
+          throw new Error(res.message);
+        }
+        const patientsData = res.data.map((patient) => [
           patient.no_rm,
-          patient.nama,
-          patient.alamat,
+          patient.name,
+          patient.alamat_lengkap,
           patient.no_hp,
         ]);
         return patientsData;

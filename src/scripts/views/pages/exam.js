@@ -1,6 +1,7 @@
 import '../../components/assessment-table';
 import { h } from 'gridjs';
 import DATA from '../../data/data';
+import showAlert from '../../utils/show-alert';
 
 const Exam = {
   async render() {
@@ -9,19 +10,22 @@ const Exam = {
     `;
   },
   async afterRender() {
+    const assessmentTable = document.querySelector('assessment-table');
     try {
-      const assessmentTable = document.querySelector('assessment-table');
       const tableData = async () => {
-        const dashboardData = await DATA.dashboard();
-        const filteredData = dashboardData.filter((patient) => !patient.status);
+        const dashboardResponse = await DATA.dashboard();
+        if (dashboardResponse.error) {
+          showAlert.error(dashboardResponse.message);
+        }
+        const filteredData = dashboardResponse.data.filter((patient) => !patient.status);
 
         return filteredData.map((patient) => [
           patient.no_antrian,
           patient.no_rawat,
-          patient.no_rm,
-          patient.nama,
-          patient.id_dokter,
-          patient.nama_dokter,
+          patient.pasien.no_rm,
+          patient.pasien.name,
+          patient.dokter.id,
+          patient.dokter.nama,
         ]);
       };
       const columns = [
@@ -48,7 +52,7 @@ const Exam = {
 
       assessmentTable.data = { columns, tableData };
     } catch (error) {
-      console.log(error.message);
+      showAlert.error(error.message);
     }
   },
 };

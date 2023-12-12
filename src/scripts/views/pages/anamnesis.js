@@ -14,71 +14,76 @@ const Anamnesis = {
   },
 
   async afterRender() {
-    try {
-      const anamnesisForm = document.querySelector('anamnesis-form');
-      const assessmentTable = document.querySelector('assessment-table');
+    const anamnesisForm = document.querySelector('anamnesis-form');
+    const assessmentTable = document.querySelector('assessment-table');
+    const modal = new Modal(document.querySelector('#modal'), {
+      onHide: () => {
+        anamnesisForm.clearInput();
+      },
+    });
 
-      const modal = new Modal(document.querySelector('#modal'), {
-        onHide: () => {
-          anamnesisForm.clearInput();
-        },
-      });
-
-      const nurses = await DATA.getNurses();
-      anamnesisForm.nurses = nurses;
-
-      const actionHandler = (noRawat, noRM, nama, idDokter, namaDokter) => {
-        // send data to form
-        anamnesisForm.data = {
-          noRawat,
-          noRM,
-          nama,
-          idDokter,
-          namaDokter,
-        };
-
-        modal.show();
+    const actionHandler = (noRawat, noRM, nama, idDokter, namaDokter) => { // send data to form
+      anamnesisForm.data = {
+        noRawat,
+        noRM,
+        nama,
+        idDokter,
+        namaDokter,
       };
 
+      modal.show();
+    };
+
+    const columns = [
+      { name: 'No. Antrian', width: '100px' },
+      'No. Rawat',
+      'No. RM',
+      'Nama Pasien',
+      { name: 'ID Dokter', hidden: true },
+      'Dokter',
+      {
+        name: 'Action',
+        formatter: (cell, row) => h(
+          'button',
+          {
+            className: 'table-button',
+            onClick: () => actionHandler(
+              row.cells[1].data, // 'No. Rawat',
+              row.cells[2].data, // 'No. RM',
+              row.cells[3].data, // 'Nama Pasien',
+              row.cells[4].data, // 'ID Dokter',
+              row.cells[5].data, // 'Dokter',
+            ),
+          },
+          'Pilih',
+        ),
+      },
+    ];
+
+    try {
+      const { error, message, data: nurses } = await DATA.getNurses();
+      if (error) {
+        throw new Error(message);
+      }
+      anamnesisForm.nurses = nurses;
+
       const tableData = async () => {
-        const dashboardData = await DATA.dashboard();
-        const filteredData = dashboardData.filter((patient) => !patient.status);
+        const dashboardResponse = await DATA.dashboard();
+        if (dashboardResponse.error) {
+          showAlert.error(dashboardResponse.message);
+        }
+
+        const filteredData = dashboardResponse.data.filter((patient) => !patient.status);
 
         return filteredData.map((patient) => [
           patient.no_antrian,
           patient.no_rawat,
-          patient.no_rm,
-          patient.nama,
-          patient.id_dokter,
-          patient.nama_dokter,
+          patient.pasien.no_rm,
+          patient.pasien.name,
+          patient.dokter.id,
+          patient.dokter.nama,
         ]);
       };
-
-      const columns = [
-        { name: 'No. Antrian', width: '100px' },
-        'No. Rawat',
-        'No. RM',
-        'Nama Pasien',
-        { name: 'ID Dokter', hidden: true },
-        'Dokter',
-        {
-          name: 'Action',
-          formatter: (cell, row) => h(
-            'button',
-            {
-              className: 'table-button',
-              onClick: () => actionHandler(
-                row.cells[1].data, // 'No. Rawat',
-                row.cells[2].data, // 'No. RM',
-                row.cells[3].data, // 'Nama Pasien',
-                row.cells[4].data, // 'ID Dokter',
-                row.cells[5].data, // 'Dokter',
-              ),
-            },
-            'Pilih',
-          ),
-        },
-      ];
 
       assessmentTable.data = { columns, tableData };
 

@@ -2,7 +2,7 @@ import './digital-clock';
 import './toggle-darkmode';
 import APP_CONFIG from '../configs/config';
 
-const userName = localStorage.getItem('username') || 'user';
+const userName = localStorage.getItem('nama') || 'user';
 
 class Navbar extends HTMLElement {
   connectedCallback() {
@@ -29,12 +29,9 @@ class Navbar extends HTMLElement {
             
             <div class="flex items-center">
               <div class="ml-3 flex items-center gap-4">
-
               <digital-clock class="hidden md:block font-semibold dark:text-gray-200"></digital-clock>
               <h3 class="dark:text-gray-200 font-bold">Hi , ${userName} !</h3>
               <toggle-darkmode></toggle-darkmode>
-
-
               </div>
             </div>
           </div>

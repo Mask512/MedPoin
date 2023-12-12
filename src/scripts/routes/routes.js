@@ -4,6 +4,7 @@ import Appointment from '../views/pages/appointment';
 import Anamnesis from '../views/pages/anamnesis';
 import Exam from '../views/pages/exam';
 import MedicalRecords from '../views/pages/medical-records';
+import MedicalRecordsDetail from '../views/pages/medical-records-detail';
 import Master from '../views/pages/master';
 import MasterAdmin from '../views/pages/master-admins';
 import MasterNurses from '../views/pages/master-nurses';
@@ -19,6 +20,7 @@ const routes = {
   '/exam': Exam,
   '/exam/patient/:id': ExamPatient,
   '/medical-records': MedicalRecords,
+  '/medical-records/detail/:id': MedicalRecordsDetail,
   '/master': Master,
   '/master/admins': MasterAdmin,
   '/master/nurses': MasterNurses,

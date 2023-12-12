@@ -1,3 +1,6 @@
+import DATA from '../data/data';
+import showAlert from '../utils/show-alert';
+
 class DoctorForm extends HTMLElement {
   connectedCallback() {
     this.render();
@@ -9,14 +12,14 @@ class DoctorForm extends HTMLElement {
     <form class="flex flex-col gap-4 rounded-md md:max-w-4xl md:flex-row">
       <div>
         <label
-          for="doctor-id"
+          for="id"
           class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
           >ID Dokter</label
         >
         <input
           type="text"
-          name="doctor_id"
-          id="doctor-id"
+          name="id"
+          id="id"
           class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
           placeholder=""
           value=""
@@ -25,14 +28,14 @@ class DoctorForm extends HTMLElement {
       </div>
       <div>
         <label
-          for="doctor-name"
+          for="nama"
           class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
           >Nama Dokter</label
         >
         <input
           type="text"
-          name="doctor_name"
-          id="doctor-name"
+          name="nama"
+          id="nama"
           class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
           placeholder=""
           value=""
@@ -41,14 +44,14 @@ class DoctorForm extends HTMLElement {
       </div>
       <div>
         <label
-          for="doctor-speciality"
+          for="spesialis"
           class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
           >Spesialis</label
         >
         <input
           type="text"
-          name="doctor_speciality"
-          id="doctor-speciality"
+          name="spesialis"
+          id="spesialis"
           class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
           placeholder=""
           value=""
@@ -77,16 +80,22 @@ class DoctorForm extends HTMLElement {
     );
   }
 
-  _handleSubmit(event) {
+  async _handleSubmit(event) {
     event.preventDefault();
-    const formElements = this.querySelectorAll('input');
-    const formData = {};
+    const id = String(this.querySelector('#id').value);
+    const nama = String(this.querySelector('#nama').value);
+    const spesialis = String(this.querySelector('#spesialis').value);
 
-    formElements.forEach((element) => {
-      formData[element.name] = element.value;
-    });
+    try {
+      const response = await DATA.registerDoctor(id, nama, spesialis);
+      if (response.error) {
+        throw new Error(response.message);
+      }
 
-    console.log('Form Data:', formData);
+      showAlert.success('Data berhasil ditambahkan');
+    } catch (error) {
+      showAlert.toast(error.message, { icon: 'warning' });
+    }
   }
 }
 

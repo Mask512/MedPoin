@@ -41,6 +41,7 @@
     "flowbite": "^2.1.1",
     "flowbite-datepicker": "^1.2.4",
     "gridjs": "^6.0.6",
+    "jwt-decode": "^4.0.0",
     "material-symbols": "^0.14.0",
     "sweetalert2": "^11.10.1"
   }

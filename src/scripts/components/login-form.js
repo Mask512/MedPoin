@@ -1,6 +1,8 @@
 import './toggle-darkmode';
 import './loading-spinner';
 import APP from '../configs/config';
+import DATA from '../data/data';
+import showAlert from '../utils/show-alert';
 
 class LoginForm extends HTMLElement {
   connectedCallback() {
@@ -56,10 +58,23 @@ class LoginForm extends HTMLElement {
     this._showLoading();
   }
 
-  _submitForm(id, password) {
-    localStorage.setItem('username', id);
-    localStorage.setItem('password', password);
-    window.location.href = '/';
+  async _submitForm(formId, password) {
+    try {
+      const response = await DATA.signIn(formId, password);
+
+      if (!response.error) {
+        const { data } = response;
+        Object.keys(data)
+          .forEach((key) => localStorage.setItem(key, data[key]));
+        window.location.href = '/';
+      } else {
+        throw new Error(response.message);
+      }
+    } catch (error) {
+      showAlert.toast(`Login Failed | ${error.message}`, { icon: 'error' });
+    } finally {
+      this._removeLoading();
+    }
   }
 
   _showLoading() {

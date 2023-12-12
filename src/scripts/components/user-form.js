@@ -1,10 +1,13 @@
+import DATA from '../data/data';
+import showAlert from '../utils/show-alert';
+
 class UserForm extends HTMLElement {
   connectedCallback() {
     this.render();
   }
 
   set employee(list) {
-    const optionSelect = this.querySelector('#user-id');
+    const optionSelect = this.querySelector('#id');
     const employeeList = list;
 
     employeeList.forEach((employee) => {
@@ -31,8 +34,8 @@ class UserForm extends HTMLElement {
     <h3 class="text-3xl font-extrabold mb-4">Tambah User Baru</h3>
     <form class="flex flex-col gap-4 mb-12 rounded-md md:max-w-4xl md:flex-row">
         <div>
-            <label for="user-id" class="mb-2 block text-sm font-medium text-gray-900 dark:text-white" >ID User</label>
-            <select id="user-id" name="user_id" class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500" required>
+            <label for="id" class="mb-2 block text-sm font-medium text-gray-900 dark:text-white" >ID User</label>
+            <select id="id" name="user_id" class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500" required>
                 <option selected value="">Pilih</option>
             </select>
         </div>
@@ -54,15 +57,15 @@ class UserForm extends HTMLElement {
             <input type="password" id="password" name="password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="•••••••••" required>
         </div>
         <div>
-            <label for="roles" class="mb-2 block text-sm font-medium text-gray-900 dark:text-white">Roles</label>
+            <label for="role" class="mb-2 block text-sm font-medium text-gray-900 dark:text-white">Role</label>
             <select
-                id="roles"
-                name="roles"
+                id="role"
+                name="role"
                 class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
                 required
             >
                 <option selected value="">Pilih</option>
-                <option value="admin">Admin</option>
+                <option value="staf">Admin</option>
                 <option value="dokter">Dokter</option>
                 <option value="perawat">Perawat</option>
             </select>
@@ -89,16 +92,22 @@ class UserForm extends HTMLElement {
     );
   }
 
-  _handleSubmit(event) {
+  async _handleSubmit(event) {
     event.preventDefault();
-    const formElements = this.querySelectorAll('input , select');
-    const formData = {};
+    const id = String(this.querySelector('#id').value);
+    const password = String(this.querySelector('#password').value);
+    const role = String(this.querySelector('#role').value);
 
-    formElements.forEach((element) => {
-      formData[element.name] = element.value;
-    });
+    try {
+      const response = await DATA.registerUser(id, password, role);
+      if (response.error) {
+        throw new Error(response.message);
+      }
 
-    console.log('Form Data:', formData);
+      showAlert.success('Data berhasil ditambahkan');
+    } catch (error) {
+      showAlert.toast(error.message, { icon: 'warning' });
+    }
   }
 }
 

@@ -1,6 +1,11 @@
 class PatientCards extends HTMLElement {
   static observedAttributes = ['loading'];
 
+  constructor() {
+    super();
+    this.setAttribute('loading', 'true');
+  }
+
   connectedCallback() {
     this.render();
   }
@@ -29,7 +34,7 @@ class PatientCards extends HTMLElement {
     return `
       <div class="flex-auto sm:flex-none grid grid-cols-[2fr_1fr] grid-rows-2 place-items-start rounded-md p-4 font-semibold text-gray-700 ring-1 ring-gray-200 dark:ring-gray-700 dark:bg-gray-800 dark:text-gray-300 ${cardColor}">
         <h3 class="text-xl">${title}</h3>
-        <p class="col-start-1 row-start-2 text-4xl">${value || ''}</p>
+        <p class="col-start-1 row-start-2 text-4xl">${value || '0'}</p>
         <span class="material-symbols-outlined col-start-2 row-span-3 text-7xl">
           group
         </span>
@@ -41,6 +46,11 @@ class PatientCards extends HTMLElement {
     if (name === 'loading') {
       this.render();
     }
+  }
+
+  hideLoading() {
+    this.setAttribute('loading', 'false');
+    this.render();
   }
 }
 
