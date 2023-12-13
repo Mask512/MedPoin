@@ -1,6 +1,7 @@
 import '../../components/appointment-form';
 import '../../components/patient-list';
 import DATA from '../../data/data';
+import showAlert from '../../utils/show-alert';
 
 const Appointment = {
   async render() {
@@ -11,33 +12,46 @@ const Appointment = {
   },
   async afterRender() {
     const appointmentForm = document.querySelector('appointment-form');
-    try {
-      const response = await DATA.getDoctors();
-      if (response.error) {
-        throw new Error(response.message);
-      }
-      const doctors = response.data;
-      appointmentForm.data = doctors;
+    const patientListTable = document.querySelector('patient-list');
 
-      const tableData = async () => {
-        const res = await DATA.getPatients();
-        if (res.error) {
-          throw new Error(res.message);
+    const fetchDataDoctors = async () => {
+      try {
+        const { error, message, data } = await DATA.getDoctors();
+        if (error) {
+          throw new Error(message);
         }
-        const patientsData = res.data.map((patient) => [
-          patient.no_rm,
-          patient.name,
-          patient.alamat_lengkap,
-          patient.no_hp,
-        ]);
-        return patientsData;
-      };
+        return data;
+      } catch (error) {
+        showAlert.toast('Belum ada data dokter');
+        console.error(error);
+        return [];
+      }
+    };
 
-      const patientList = document.querySelector('patient-list');
-      patientList.data = tableData;
-    } catch (error) {
-      console.log(error.message);
-    }
+    appointmentForm.data = await fetchDataDoctors();
+
+    const fetchDataPatients = async () => {
+      try {
+        const { error, message, data } = await DATA.getPatients();
+        if (!data.length || error) {
+          throw new Error(message);
+        }
+        return data;
+      } catch (error) {
+        showAlert.toast('Belum ada pasien terdaftar');
+        console.error(error);
+        return [];
+      }
+    };
+
+    const mapPatientsData = (data) => data.map((patient) => [
+      patient.no_rm,
+      patient.name,
+      patient.alamat_lengkap,
+      patient.no_hp,
+    ]);
+
+    patientListTable.data = mapPatientsData(await fetchDataPatients());
   },
 };
 

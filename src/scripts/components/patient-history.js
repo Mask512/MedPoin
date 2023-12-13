@@ -1,3 +1,4 @@
+import { html } from 'gridjs';
 import createTable from '../utils/create-table';
 
 class PatientHistory extends HTMLElement {
@@ -25,7 +26,15 @@ class PatientHistory extends HTMLElement {
       'No. RM',
       'Nama',
       'Tanggal',
-      'Status',
+      {
+        name: 'Status',
+        formatter: (cell) => {
+          if (cell) {
+            return 'Terlayani';
+          }
+          return html('<span class="text-yellow-300 italic">Belum Terlayani</span>');
+        },
+      },
       'Dokter',
     ];
 

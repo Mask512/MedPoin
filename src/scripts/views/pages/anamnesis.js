@@ -16,13 +16,14 @@ const Anamnesis = {
   async afterRender() {
     const anamnesisForm = document.querySelector('anamnesis-form');
     const assessmentTable = document.querySelector('assessment-table');
+
     const modal = new Modal(document.querySelector('#modal'), {
       onHide: () => {
         anamnesisForm.clearInput();
       },
     });
 
-    const actionHandler = (noRawat, noRM, nama, idDokter, namaDokter) => { // send data to form
+    const actionHandler = (noRawat, noRM, nama, idDokter, namaDokter) => {
       anamnesisForm.data = {
         noRawat,
         noRM,
@@ -48,11 +49,11 @@ const Anamnesis = {
           {
             className: 'table-button',
             onClick: () => actionHandler(
-              row.cells[1].data, // 'No. Rawat',
-              row.cells[2].data, // 'No. RM',
-              row.cells[3].data, // 'Nama Pasien',
-              row.cells[4].data, // 'ID Dokter',
-              row.cells[5].data, // 'Dokter',
+              row.cells[1].data,
+              row.cells[2].data,
+              row.cells[3].data,
+              row.cells[4].data,
+              row.cells[5].data,
             ),
           },
           'Pilih',
@@ -60,22 +61,28 @@ const Anamnesis = {
       },
     ];
 
-    try {
-      const { error, message, data: nurses } = await DATA.getNurses();
-      if (error) {
-        throw new Error(message);
-      }
-      anamnesisForm.nurses = nurses;
-
-      const tableData = async () => {
-        const dashboardResponse = await DATA.dashboard();
-        if (dashboardResponse.error) {
-          showAlert.error(dashboardResponse.message);
+    const fetchDataNurses = async () => {
+      try {
+        const { error, message, data } = await DATA.getNurses();
+        if (!data || error) {
+          throw new Error(message);
         }
+        return data;
+      } catch (error) {
+        showAlert.toast(error);
+        console.error(error);
+        return [];
+      }
+    };
 
-        const filteredData = dashboardResponse.data.filter((patient) => !patient.status);
-
-        return filteredData.map((patient) => [
+    const getFilteredDashboardData = async () => {
+      try {
+        const { error, message, data } = await DATA.dashboard();
+        if (error) {
+          throw new Error(message);
+        }
+        const filterDashboardData = data.filter((patient) => !patient.status);
+        return filterDashboardData.map((patient) => [
           patient.no_antrian,
           patient.no_rawat,
           patient.pasien.no_rm,
@@ -83,16 +90,19 @@ const Anamnesis = {
           patient.dokter.id,
           patient.dokter.nama,
         ]);
-      };
+      } catch (error) {
+        showAlert.toast(error.message);
+        console.error(error);
+        return [];
+      }
+    };
 
-      assessmentTable.data = { columns, tableData };
+    anamnesisForm.nurses = await fetchDataNurses();
+    assessmentTable.data = { columns, tableData: getFilteredDashboardData };
 
-      document.querySelector('#closeModal').addEventListener('click', () => {
-        modal.hide();
-      });
-    } catch (error) {
-      showAlert.error(error.message);
-    }
+    document.querySelector('#closeModal').addEventListener('click', () => {
+      modal.hide();
+    });
   },
 };
 

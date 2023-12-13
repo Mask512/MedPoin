@@ -1,4 +1,3 @@
-/* eslint-disable consistent-return */
 import { h } from 'gridjs';
 import '../../components/medical-records-table';
 import DATA from '../../data/data';
@@ -35,6 +34,11 @@ const MedicalRecords = {
     const getData = async () => {
       try {
         const response = await DATA.medicalRecords();
+
+        // need handling error if statusCode 500
+        if (response.statusCode === 500) {
+          throw new Error('Belum ada data rekam medis');
+        }
         if (response.error) {
           throw new Error(response.message);
         }
@@ -46,10 +50,12 @@ const MedicalRecords = {
           patient.jumlah_kunjungan,
         ]);
       } catch (error) {
-        showAlert.error(error.message);
+        showAlert.toast(error.message);
+        console.error(error);
+        return [];
       }
     };
-    table.data = { columns, data: await getData };
+    table.data = { columns, data: getData };
   },
 };
 

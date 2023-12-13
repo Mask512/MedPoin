@@ -13,7 +13,7 @@ class AssessmentTable extends HTMLElement {
   render() {
     this.innerHTML = `
     <div>
-      <h3 class="text-3xl font-bold mt-4 lg:-mb-12">Daftar Pasien</h3>
+      <h3 class="text-3xl font-bold mt-4 lg:-mb-12">Antrian Pemeriksaan Pasien</h3>
       <div id="table-data"></div>
     </div>
     `;

@@ -12,7 +12,7 @@ class MedicalRecordsTable extends HTMLElement {
   render() {
     this.innerHTML = `
     <div>
-      <h3 class="text-3xl font-bold my-4 lg:-mb-12">Daftar <span id="table-title">Daftar Rekam Medis Pasien</span></h3>
+      <h3 class="text-3xl font-bold my-4 lg:-mb-12"><span id="table-title">Daftar Rekam Medis Pasien</span></h3>
       <div id="table-data"></div>
     </div>
       `;

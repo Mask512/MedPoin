@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;500;800&display=swap');
-@import 'material-symbols/outlined.css';
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined');
 @import 'gridjs/dist/theme/mermaid.css';
 @tailwind base;
 @tailwind components;
@@ -20,7 +20,7 @@ body * {
 }
 
 .table-header {
-  @apply bg-gray-50 text-lg uppercase text-gray-700 dark:bg-gray-700 dark:text-gray-400;
+  @apply bg-gray-50 text-lg uppercase text-gray-700 dark:bg-gray-700 dark:text-gray-50;
 }
 
 .table-data {
@@ -30,6 +30,7 @@ body * {
 .table-summary {
   @apply text-gray-700 dark:text-white;
 }
+
 .table-footer {
   @apply bg-gray-50 dark:bg-gray-700;
 }
@@ -40,4 +41,9 @@ body * {
 
 .gridjs-search {
   @apply lg:float-right
+}
+
+.sweet-alert,
+.sweet-alert.swal2-toast {
+  @apply bg-gray-50 dark:bg-gray-700 text-gray-700 dark:text-white;
 }

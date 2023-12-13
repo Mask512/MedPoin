@@ -21,7 +21,6 @@ class Clock extends HTMLElement {
 
   _checkTime(i) {
     if (i < 10) {
-      // eslint-disable-next-line no-param-reassign
       i = `0${i}`;
     }
     return i;

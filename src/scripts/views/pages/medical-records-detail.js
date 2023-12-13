@@ -24,9 +24,9 @@ const MedicalRecordsDetail = {
       'Tanggal',
       'No Rawat',
       'Keluhan',
-      'Diagnosa',
-      'Tindakan',
-      'Resep',
+      'ICD10 ( Diagnosis )',
+      'ICD9-CM ( Prosedur )',
+      'Resep Obat',
       'Dokter',
     ];
     try {

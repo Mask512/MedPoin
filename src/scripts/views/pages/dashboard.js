@@ -1,4 +1,3 @@
-/* eslint-disable consistent-return */
 import '../../components/patient-cards';
 import '../../components/patient-history';
 import DATA from '../../data/data';
@@ -15,43 +14,41 @@ const Dashboard = {
 
   async afterRender() {
     const patientCards = document.querySelector('patient-cards');
-    const updatePatientCards = (total, terlayani) => {
-      patientCards.data = { total, terlayani };
-    };
     const patientHistory = document.querySelector('patient-history');
 
-    const tableData = async () => {
+    const updatePatientCards = (data) => {
+      const total = data.length;
+      const terlayani = data.filter((obj) => obj.status).length;
+      patientCards.data = { total, terlayani };
+      patientCards.hideLoading();
+    };
+
+    const fetchData = async () => {
       try {
         const { error, message, data } = await DATA.dashboard();
         if (error) {
-          updatePatientCards(0, 0);
-          patientHistory.data = [];
           throw new Error(message);
         }
-
-        const total = data.length;
-        const terlayani = data.filter((obj) => obj.status).length;
-
-        updatePatientCards(total, terlayani);
-
-        const patientData = data.map((patient) => [
-          patient.no_antrian,
-          patient.no_rawat,
-          patient.pasien.no_rm,
-          patient.pasien.name,
-          formatDate(patient.tgl_antrian),
-          patient.status ? 'Terlayani' : 'Belum Terlayani',
-          patient.dokter.nama,
-        ]);
-
-        return patientData;
+        return data;
       } catch (error) {
-        showAlert.error(error);
-      } finally {
-        patientCards.hideLoading();
+        showAlert.toast(error.message);
+        return [];
       }
     };
-    patientHistory.data = tableData;
+
+    const mapPatientData = (data) => data.map((patient) => [
+      patient.no_antrian,
+      patient.no_rawat,
+      patient.pasien.no_rm,
+      patient.pasien.name,
+      formatDate(patient.tgl_antrian),
+      patient.status,
+      patient.dokter.nama,
+    ]);
+
+    const data = await fetchData();
+    updatePatientCards(data);
+    patientHistory.data = mapPatientData(data);
   },
 };
 

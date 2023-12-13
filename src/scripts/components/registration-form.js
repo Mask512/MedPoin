@@ -21,7 +21,7 @@ class RegistrationForm extends HTMLElement {
     this.getPatientRMNumber();
     this.innerHTML = `
     <form class="mb-4 rounded-md p-4 ring-1 ring-gray-200 dark:ring-gray-700">
-      <h3 class="mb-4 text-2xl underline underline-offset-8 font-semibold text-gray-800 dark:text-white">
+      <h3 class="mb-4 text-2xl underline underline-offset-8 font-semibold text-gray-700 dark:text-white">
         Registrasi Pasien Baru
       </h3>
       <div class="mb-4 grid gap-4 sm:grid-cols-2">
@@ -248,7 +248,7 @@ class RegistrationForm extends HTMLElement {
       </div>
       <div class="flex flex-wrap gap-4">
         <button
-          type="reset"
+          id="reset"
           class="uppercase flex-1 rounded-lg bg-red-500 px-5 py-3 text-center text-sm font-medium text-white hover:bg-gray-800 focus:outline-none focus:ring-4 focus:ring-blue-500 dark:hover:bg-gray-700 dark:focus:ring-blue-500 sm:w-fit"
         >
           Reset
@@ -277,6 +277,7 @@ class RegistrationForm extends HTMLElement {
   addEventListeners() {
     const form = this.querySelector('form');
     form.addEventListener('submit', this._handleSubmit.bind(this));
+    form.querySelector('#reset').addEventListener('click', this.clearInput.bind(this));
   }
 
   async _handleSubmit(event) {
@@ -303,17 +304,7 @@ class RegistrationForm extends HTMLElement {
   }
 
   clearInput() {
-    const formElements = this.querySelectorAll('input, select, textarea');
-    formElements.forEach((element) => {
-      if (
-        element.type === 'text'
-        || element.type === 'textarea'
-        || element.tagName === 'SELECT'
-      ) {
-        // eslint-disable-next-line no-param-reassign
-        element.value = '';
-      }
-    });
+    this.render();
   }
 
   attributeChangedCallback(name, oldValue, newValue) {

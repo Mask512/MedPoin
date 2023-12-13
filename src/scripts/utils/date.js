@@ -17,31 +17,41 @@ function daysInMonth(month, year) {
 }
 
 function calculateAge(birthdate) {
-  const today = new Date();
-  const birthdateArray = birthdate.split('/');
-  const birthDay = parseInt(birthdateArray[0], 10);
-  const birthMonth = parseInt(birthdateArray[1], 10) - 1;
-  const birthYear = parseInt(birthdateArray[2], 10);
+  if (birthdate) {
+    const today = new Date();
+    const birthdateArray = birthdate.split('/');
+    const birthDay = parseInt(birthdateArray[0], 10);
+    const birthMonth = parseInt(birthdateArray[1], 10) - 1;
+    const birthYear = parseInt(birthdateArray[2], 10);
 
-  const birthDate = new Date(birthYear, birthMonth, birthDay);
+    const birthDate = new Date(birthYear, birthMonth, birthDay);
 
-  let ageYears = today.getFullYear() - birthDate.getFullYear();
-  let ageMonths = today.getMonth() - birthDate.getMonth();
-  let ageDays = today.getDate() - birthDate.getDate();
+    let ageYears = today.getFullYear() - birthDate.getFullYear();
+    let ageMonths = today.getMonth() - birthDate.getMonth();
+    let ageDays = today.getDate() - birthDate.getDate();
 
-  if (ageDays < 0) {
-    const lastMonth = new Date(today.getFullYear(), today.getMonth() - 1, birthDate.getDate());
-    const daysInLastMonth = daysInMonth(lastMonth.getMonth(), lastMonth.getFullYear());
-    ageDays += daysInLastMonth;
-    ageMonths--;
+    if (ageDays < 0) {
+      const lastMonth = new Date(
+        today.getFullYear(),
+        today.getMonth() - 1,
+        birthDate.getDate(),
+      );
+      const daysInLastMonth = daysInMonth(
+        lastMonth.getMonth(),
+        lastMonth.getFullYear(),
+      );
+      ageDays += daysInLastMonth;
+      ageMonths--;
+    }
+
+    if (ageMonths < 0) {
+      ageMonths += 12;
+      ageYears--;
+    }
+
+    return `${ageYears} tahun ${ageMonths} bulan ${ageDays} hari`;
   }
-
-  if (ageMonths < 0) {
-    ageMonths += 12;
-    ageYears--;
-  }
-
-  return `${ageYears} tahun ${ageMonths} bulan ${ageDays} hari`;
+  return '';
 }
 
 export { formatDate, calculateAge };
