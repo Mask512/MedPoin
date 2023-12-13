@@ -2,6 +2,7 @@ const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CompressionPlugin = require('compression-webpack-plugin');
+const { GenerateSW } = require('workbox-webpack-plugin');
 
 module.exports = {
   entry: {
@@ -32,12 +33,14 @@ module.exports = {
       favicon: path.resolve(__dirname, 'src/assets/ico/favicon.ico'),
       template: path.resolve(__dirname, 'src/templates/index.html'),
       chunks: ['main'],
+      headPreconnect: ['https://fonts.gstatic.com'],
     }),
     new HtmlWebpackPlugin({
       filename: 'login.html',
       favicon: path.resolve(__dirname, 'src/assets/ico/favicon.ico'),
       template: path.resolve(__dirname, 'src/templates/login.html'),
       chunks: ['login'],
+      headPreconnect: ['https://fonts.gstatic.com'],
     }),
     new CompressionPlugin({
       algorithm: 'gzip',
@@ -48,6 +51,9 @@ module.exports = {
       threshold: 10240,
       minRatio: 0.8,
     }),
+    new GenerateSW({
+      swDest: './sw.bundle.js',
+    }),    
   ],
   optimization: {
     runtimeChunk: 'single',
