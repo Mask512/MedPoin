@@ -107,10 +107,10 @@ class PatientData extends HTMLElement {
       class="space-y-8 rtl:space-x-reverse md:grid md:grid-cols-[auto_1fr] md:items-center md:space-x-8 md:space-y-0"
       >
       <div
-          class="flex h-full min-h-[12rem] w-full items-center justify-center rounded bg-gray-300 dark:bg-gray-700 sm:w-96 md:w-72"
+          class="flex h-full min-h-[12rem] w-full items-center justify-center rounded-lg bg-gray-300 dark:bg-gray-700 sm:w-96 md:w-72"
         >
         <svg
-          class="h-[12rem] w-[12rem] text-gray-200 dark:text-gray-600"
+          class="h-[12rem] w-[12rem] px-4 text-gray-200 dark:text-gray-600"
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           fill="currentColor"
