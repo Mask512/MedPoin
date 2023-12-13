@@ -25,8 +25,6 @@ const MasterUsers = {
           DATA.getNurses(),
         ]);
 
-        console.log(employeeData);
-
         employeeData.forEach((response) => {
           if (response.error === 'Not found') {
             throw new Error(`Belum ada data pegawai | ${response.message}`);

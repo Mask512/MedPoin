@@ -1,3 +1,5 @@
+import { formatDate } from '../utils/date';
+
 class PatientData extends HTMLElement {
   static observedAttributes = ['loading'];
 
@@ -133,7 +135,7 @@ class PatientData extends HTMLElement {
           <p class="grid grid-cols-[150px_auto]">Kontak Darurat <span class="before:content-[':']"> ${emergencyContactNumber}</span></p>
           <p class="grid grid-cols-[150px_auto]">Golongan Darah <span class="before:content-[':']"> ${bloodType}</span></p>
           <p class="grid grid-cols-[150px_auto]">Status Perkawinan <span class="before:content-[':']"> ${status}</span></p>
-          <p class="grid grid-cols-[150px_auto]">Tanggal Pendaftaran <span class="before:content-[':']"> ${registerDate}</span></p>
+          <p class="grid grid-cols-[150px_auto]">Tanggal Pendaftaran <span class="before:content-[':']"> ${formatDate(registerDate)}</span></p>
           <p class="grid grid-cols-[150px_auto]">Tempat Tanggal Lahir <span class="before:content-[':']"> ${placeOfBirth}, ${birthDate}</span></p>
           <p class="grid grid-cols-[150px_auto]">
             Alamat Lengkap <span class="before:content-[':']"> ${address}

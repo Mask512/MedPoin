@@ -1,4 +1,4 @@
-import { h } from 'gridjs';
+import { h, html } from 'gridjs';
 import createTable from '../utils/create-table';
 
 class PatientList extends HTMLElement {
@@ -21,7 +21,10 @@ class PatientList extends HTMLElement {
 
   _createTable(data) {
     const columns = [
-      'No. RM',
+      {
+        name: 'No. RM',
+        formatter: (cell) => html(`<a href="#/medical-records/detail/${cell}" class="font-extrabold hover:text-blue-500">${cell}</a>`),
+      },
       'Nama',
       'Alamat',
       'Nomor HP',
