@@ -1,4 +1,3 @@
-/* eslint-disable consistent-return */
 import '../../components/exam-form';
 import { h } from 'gridjs';
 import DATA from '../../data/data';
@@ -91,14 +90,23 @@ const ExamPatient = {
 
     try {
       const [anamnesisResponse, icd9Response, icd10Response] = await Promise.all([
-        await DATA.getAnamnesis(examNumber),
+        DATA.getAnamnesis(examNumber),
         DATA.icd9(),
         DATA.icd10(),
       ]);
-      console.log(anamnesisResponse);
 
       if (anamnesisResponse.status === 422) {
-        throw new Error('Data Anamnesis Belum Tersedia');
+        examForm.data = {
+          name: '',
+          no_rm: '',
+          no_rawat: '',
+          tanggal_lahir: undefined,
+          berat: '',
+          tinggi: '',
+          tensi: '',
+          suhu: '',
+        };
+        throw new Error('Data Anamnesis Belum Tersedia Harap isi anamnesis terlebih dahulu');
       }
       if (anamnesisResponse.error) {
         throw new Error(anamnesisResponse.message);
@@ -123,7 +131,7 @@ const ExamPatient = {
         data: await icdMapped(icd10Response.data),
       };
     } catch (error) {
-      showAlert.error(error);
+      showAlert.error(error.message);
     }
   },
 };

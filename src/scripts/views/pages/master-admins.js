@@ -15,26 +15,26 @@ const MasterAdmins = {
   async afterRender() {
     const table = document.querySelector('employee-table');
     const columns = ['id', 'Nama'];
-    let getData;
-
-    try {
-      getData = async () => {
-        const response = await DATA.getAdmins();
-        if (response.error) {
-          throw new Error(response.message);
+    const fetchData = async () => {
+      try {
+        const { error, message, data } = await DATA.getAdmins();
+        if (error) {
+          throw new Error(message);
         }
-        return response.data.map((admin) => [admin.id, admin.nama]);
-      };
-      table.data = { columns, data: getData };
-    } catch (error) {
-      showAlert.error(error.message);
-    }
+        return data.map((admin) => [admin.id, admin.nama]);
+      } catch (error) {
+        showAlert.toast('Belum ada data admin');
+        return [];
+      }
+    };
+
+    table.data = { columns, data: await fetchData() };
 
     document
       .querySelector('admin-form form')
       .addEventListener('submit', async () => {
         table.updateTable({
-          data: await getData,
+          data: await fetchData(),
         });
       });
   },

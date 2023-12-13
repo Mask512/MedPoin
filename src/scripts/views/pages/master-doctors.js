@@ -15,26 +15,28 @@ const MasterDoctors = {
   async afterRender() {
     const table = document.querySelector('employee-table');
     const columns = ['id', 'Nama', 'Spesialis'];
-    let getData;
-    try {
-      getData = async () => {
-        const response = await DATA.getDoctors();
-        if (response.error) {
-          throw new Error(response.message);
-        }
-        return response.data.map((doctor) => [doctor.id, doctor.nama, doctor.spesialis]);
-      };
 
-      table.data = { columns, data: getData };
-    } catch (error) {
-      showAlert.error(error.message);
-    }
+    const fetchData = async () => {
+      try {
+        const { error, message, data } = await DATA.getDoctors();
+        if (error) {
+          throw new Error(message);
+        }
+        return data.map((doctor) => [doctor.id, doctor.nama, doctor.spesialis]);
+      } catch (error) {
+        showAlert.toast('Belum ada data dokter');
+        console.error(error);
+        return [];
+      }
+    };
+
+    table.data = { columns, data: await fetchData() };
 
     document
       .querySelector('doctor-form form')
       .addEventListener('submit', async () => {
         table.updateTable({
-          data: await getData,
+          data: await fetchData(),
         });
       });
   },

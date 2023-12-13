@@ -105,6 +105,7 @@ class UserForm extends HTMLElement {
       }
 
       showAlert.success('Data berhasil ditambahkan');
+      this.dispatchEvent(new Event('user-added'));
     } catch (error) {
       showAlert.toast(error.message, { icon: 'warning' });
     }

@@ -13,53 +13,59 @@ const MasterUsers = {
   },
 
   async afterRender() {
-    const userForm = document.querySelector('user-form');
     const table = document.querySelector('employee-table');
+    const userForm = document.querySelector('user-form');
     const columns = ['id', 'Role'];
-    let getData;
 
-    try {
-      const employeeData = await Promise.all([
-        DATA.getAdmins(),
-        DATA.getDoctors(),
-        DATA.getNurses(),
-      ]);
+    const getEmployeeList = async () => {
+      try {
+        const employeeData = await Promise.all([
+          DATA.getAdmins(),
+          DATA.getDoctors(),
+          DATA.getNurses(),
+        ]);
 
-      employeeData.forEach((response) => {
-        if (response.error) {
-          throw new Error('Something error with get Employee Data');
-        }
-      });
+        console.log(employeeData);
 
-      const [admins, doctors, nurses] = employeeData;
-      const dataArr = [...admins.data, ...doctors.data, ...nurses.data];
-      const employeeList = dataArr.map((obj) => ({
-        id: obj.id,
-        name: obj.nama,
-      }));
-
-      userForm.employee = employeeList;
-
-      getData = async () => {
-        const response = await DATA.getUsers();
-        if (response.error) {
-          throw new Error(response.message);
-        }
-        return response.data.map((user) => [user.id, user.role]);
-      };
-
-      table.data = { columns, data: getData };
-    } catch (error) {
-      showAlert.error(error.message);
-    }
-
-    userForm
-      .querySelector('form')
-      .addEventListener('submit', async () => {
-        table.updateTable({
-          data: await getData,
+        employeeData.forEach((response) => {
+          if (response.error === 'Not found') {
+            throw new Error(`Belum ada data pegawai | ${response.message}`);
+          }
         });
+
+        const [admins, doctors, nurses] = employeeData;
+        const dataArr = [...admins.data, ...doctors.data, ...nurses.data];
+        return dataArr.map((obj) => ({
+          id: obj.id,
+          name: obj.nama,
+        }));
+      } catch (error) {
+        showAlert.toast(error.message);
+        return [];
+      }
+    };
+
+    userForm.employee = await getEmployeeList();
+
+    const getUsersData = async () => {
+      try {
+        const { error, message, data } = await DATA.getUsers();
+        if (error) {
+          throw new Error(message);
+        }
+        return data.map((user) => [user.id, user.role]);
+      } catch (error) {
+        showAlert.error(error.message);
+        return [];
+      }
+    };
+
+    table.data = { columns, data: await getUsersData() };
+    userForm.addEventListener('user-added', async () => {
+      table.updateTable({
+        data: await getUsersData(),
       });
+    });
   },
 };
 
