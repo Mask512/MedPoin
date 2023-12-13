@@ -3,14 +3,14 @@ import Swal from 'sweetalert2';
 const defaultConfig = {
   timer: 2500,
   timerProgressBar: true,
+  customClass: {
+    popup: 'sweet-alert',
+  },
 };
 
 const Toast = Swal.mixin({
   toast: true,
   position: 'top-end',
-  // customClass: {
-  //   popup: 'colored-toast',
-  // },
   width: 'auto',
   showConfirmButton: false,
   ...defaultConfig,
