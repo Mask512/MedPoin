@@ -269,6 +269,9 @@ class RegistrationForm extends HTMLElement {
         format: 'dd/mm/yyyy',
         language: 'id',
         title: 'Tanggal Lahir',
+        maxDate: new Date().setHours(0, 0, 0, 0),
+        todayHighlight: true,
+        autohide: true,
       });
     }
     this.addEventListeners();
@@ -277,7 +280,29 @@ class RegistrationForm extends HTMLElement {
   addEventListeners() {
     const form = this.querySelector('form');
     form.addEventListener('submit', this._handleSubmit.bind(this));
-    form.querySelector('#reset').addEventListener('click', this.clearInput.bind(this));
+    form
+      .querySelector('#reset')
+      .addEventListener('click', this.clearInput.bind(this));
+  }
+
+  _validateBirthDate() {
+    const inputBirthDay = this.querySelector('#tanggal_lahir');
+    const tanggalValue = inputBirthDay.value;
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    const parts = tanggalValue.split('/');
+    if (parts.length === 3) {
+      const inputDate = new Date(parts[2], parts[1] - 1, parts[0]);
+      if (inputDate > today) {
+        showAlert.toast(
+          'Tanggal tidak valid. Harap masukkan tanggal sebelum hari ini.',
+        );
+        inputBirthDay.value = '';
+        return false;
+      }
+    }
+    return true;
   }
 
   async _handleSubmit(event) {
@@ -290,16 +315,20 @@ class RegistrationForm extends HTMLElement {
       formData[element.name] = element.value;
     });
 
-    try {
-      const response = await DATA.registerPatient(formData);
-      if (response.error) {
-        throw new Error(response.message);
-      }
+    const isBirthDateValid = this._validateBirthDate();
 
-      showAlert.success('Data berhasil ditambahkan');
-      this.render();
-    } catch (error) {
-      showAlert.toast(error.message, { icon: 'warning' });
+    if (isBirthDateValid) {
+      try {
+        const response = await DATA.registerPatient(formData);
+        if (response.error) {
+          throw new Error(response.message);
+        }
+
+        showAlert.success('Data berhasil ditambahkan');
+        this.render();
+      } catch (error) {
+        showAlert.toast(error.message, { icon: 'warning' });
+      }
     }
   }
 
