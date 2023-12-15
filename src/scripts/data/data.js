@@ -17,10 +17,22 @@ class DATA {
 
     const response = await fetch(endpoint, options);
 
+    if (response.status === 401 && response.statusText === 'Unauthorized') {
+      localStorage.removeItem('accessToken');
+    }
+
     if (response.status === 204) {
       return {
         error: true,
         message: 'Belum ada data yang ditemukan',
+        data: null,
+      };
+    }
+
+    if (response.status === 500) {
+      return {
+        error: true,
+        message: 'Internal Server Error',
         data: null,
       };
     }

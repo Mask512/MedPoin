@@ -36,7 +36,12 @@ const Appointment = {
         if (!data.length || error) {
           throw new Error(message);
         }
-        return data;
+        return data.map((patient) => [
+          patient.no_rm,
+          patient.name,
+          patient.alamat_lengkap,
+          patient.no_hp,
+        ]);
       } catch (error) {
         showAlert.toast('Belum ada pasien terdaftar');
         console.error(error);
@@ -44,14 +49,7 @@ const Appointment = {
       }
     };
 
-    const mapPatientsData = (data) => data.map((patient) => [
-      patient.no_rm,
-      patient.name,
-      patient.alamat_lengkap,
-      patient.no_hp,
-    ]);
-
-    patientListTable.data = mapPatientsData(await fetchDataPatients());
+    patientListTable.data = fetchDataPatients;
   },
 };
 

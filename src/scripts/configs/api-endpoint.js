@@ -19,7 +19,6 @@ const API_ENDPOINT = {
   REG_PATIENT: `${CONFIG.BASE_URL}pasien/registrasi`,
   RM_NUMBER: `${CONFIG.BASE_URL}pasien/rm`,
   ANAMNESIS: `${CONFIG.BASE_URL}anamnesis`,
-  // ANAMNESIS_NUMBER: `${CONFIG.BASE_URL}anamnesis`,
   EXAM: `${CONFIG.BASE_URL}pemeriksaan`,
   MED_RECORDS: `${CONFIG.BASE_URL}rekammedis`,
   MED_RECORDS_DETAIL: `${CONFIG.BASE_URL}rekammedis`,

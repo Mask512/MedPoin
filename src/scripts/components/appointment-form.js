@@ -12,7 +12,7 @@ class AppoinmentForm extends HTMLElement {
 
   render() {
     this.innerHTML = `
-    <form class="flex flex-col gap-4 rounded-md md:max-w-4xl md:flex-row">
+    <form class="flex flex-col gap-4 mb-6 md:max-w-4xl md:flex-row">
       <div class="">
         <label
           for="no-rm"

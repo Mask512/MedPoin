@@ -26,6 +26,9 @@ const Dashboard = {
     const fetchData = async () => {
       try {
         const { error, message, data } = await DATA.dashboard();
+        if (message === 'Belum ada data yang ditemukan') {
+          throw new Error('Belum ada pasien terdaftar');
+        }
         if (error) {
           throw new Error(message);
         }

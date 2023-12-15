@@ -28,10 +28,10 @@ class PatientData extends HTMLElement {
     return `    
     <div
       role="status"
-      class="animate-pulse space-y-8 rtl:space-x-reverse md:grid md:grid-cols-[auto_1fr] md:items-center md:space-x-8 md:space-y-0"
+      class="animate-pulse space-y-8 my-6 rtl:space-x-reverse md:grid md:grid-cols-[auto_1fr] md:items-center md:space-x-8 md:space-y-0"
       >
       <div
-        class="flex min-h-[12rem] h-full w-full items-center justify-center rounded bg-gray-300 dark:bg-gray-700 sm:w-96 md:w-72"
+        class="flex min-h-[12rem] h-full w-full items-center justify-center rounded-lg bg-gray-300 dark:bg-gray-700 sm:w-96 md:w-72"
       >
         <svg
           class="h-10 w-10 text-gray-200 dark:text-gray-600"
@@ -106,7 +106,7 @@ class PatientData extends HTMLElement {
     } = this.patientData;
     return `
     <div
-      class="space-y-8 rtl:space-x-reverse md:grid md:grid-cols-[auto_1fr] md:items-center md:space-x-8 md:space-y-0"
+      class="space-y-8 rtl:space-x-reverse my-6 md:grid md:grid-cols-[auto_1fr] md:items-center md:space-x-8 md:space-y-0"
       >
       <div
           class="flex h-full min-h-[12rem] w-full items-center justify-center rounded-lg bg-gray-300 dark:bg-gray-700 sm:w-96 md:w-72"
