@@ -58,10 +58,10 @@ const MasterUsers = {
       }
     };
 
-    table.data = { columns, data: await getUsersData() };
-    userForm.addEventListener('user-added', async () => {
+    table.data = { columns, data: getUsersData };
+    userForm.addEventListener('user-added', () => {
       table.updateTable({
-        data: await getUsersData(),
+        data: getUsersData,
       });
     });
   },

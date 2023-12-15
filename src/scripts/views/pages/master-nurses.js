@@ -29,13 +29,13 @@ const MasterNurses = {
       }
     };
 
-    table.data = { columns, data: await fetchData() };
+    table.data = { columns, data: fetchData };
 
     document
       .querySelector('nurse-form form')
-      .addEventListener('submit', async () => {
+      .addEventListener('submit', () => {
         table.updateTable({
-          data: await fetchData(),
+          data: fetchData,
         });
       });
   },
