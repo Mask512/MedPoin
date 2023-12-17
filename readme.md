@@ -16,6 +16,8 @@ Rekam Medis
 Phone  
 <img src="./screenshots/p1.jpeg" alt="image" width="300px" height="auto">
 <img src="./screenshots/p2.jpeg" alt="image" width="300px" height="auto">  
+Lighthouse Score  
+<img src="./screenshots/performance.png" alt="image" width="500px" height="auto">
 
 ## Fitur
 
@@ -56,7 +58,7 @@ Berikut adalah beberapa teknologi utama yang digunakan dalam pengembangan Medpoi
 - Node.js
 - npm (Node Package Manager)
 - Web Browser 
-- [Medpoin Backend Server](https://github.com/BAMBAROO/med_poin_backend) 
+- [Medpoin Server](https://github.com/Mask512/medpoin_backend/tree/instalation) 
 
 ## Instalasi
 
@@ -73,7 +75,7 @@ Berikut adalah beberapa teknologi utama yang digunakan dalam pengembangan Medpoi
   npm install
 ```
 
-3. Konfigurasi file lingkungan (environment) untuk URL API ENDPOINT / [Medpoin Backend Server](https://github.com/BAMBAROO/med_poin_backend) .
+1. Konfigurasi file lingkungan (environment) untuk URL API ENDPOINT / [Medpoin Server](https://github.com/Mask512/medpoin_backend/tree/instalation) .
   Buat file .env (untuk build) atau .env.development (untuk pengembangan), lalu simpan.  
   Contoh :
 
@@ -111,6 +113,9 @@ _Kami deploy aplikasi di private server dengan protokol http menyebabkan service
 
 ## Credits
 
+- [![Static Badge](https://img.shields.io/badge/Bryan_Athallah-blue?style=flat-square&logo=github
+)](https://github.com/BAMBAROO) & [![Static Badge](https://img.shields.io/badge/Fikry_Akrom-blue?style=flat-square&logo=github
+)](https://github.com/fikryakrom)
 - [![Static Badge](https://img.shields.io/badge/Tailwindcss-38BDF8?link=https%3A%2F%2Ftailwindcss.com%2F)](https://tailwindcss.com)
 - [![Static Badge](https://img.shields.io/badge/Flowbite-193DD7?link=https%3A%2F%2Fflowbite.com%2F)](https://flowbite.com)
 - [![Static Badge](https://img.shields.io/badge/Grid.js-1C64F2?link=https%3A%2F%2Fgridjs.io%2F)](https://gridjs.io)
