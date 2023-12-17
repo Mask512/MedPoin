@@ -80,12 +80,12 @@ Berikut adalah beberapa teknologi utama yang digunakan dalam pengembangan Medpoi
 ```bash
   BASE_URL=http://localhost:5000/
 ```
-4. Jalankan aplikasi
-Development :
+4. Jalankan aplikasi  
+
+  Development :
 ```bash
   npm run start:dev
 ```
-
 Build :
 ```bash
   npm run build
@@ -100,17 +100,19 @@ Jalankan hasil build dengan http-server Node.js (pastikan http-server telah teri
 Buka aplikasi di web browser . default di http://localhost:9100
 ## Demo
 
+_Kami deploy aplikasi di private server dengan protokol http menyebabkan service worker dan caching tidak berjalan secara default_
+
 [Live Demo](http://medpoin.sytes.net/)
 
 ```
- Username : 
- Password : 
+ Username : superadmin
+ Password : nimdarepus
  ```
 
 ## Credits
 
-- ![Static Badge](https://img.shields.io/badge/Tailwindcss-38BDF8?link=https%3A%2F%2Ftailwindcss.com%2F)
-- ![Static Badge](https://img.shields.io/badge/Flowbite-193DD7?link=https%3A%2F%2Fflowbite.com%2F)
-- ![Static Badge](https://img.shields.io/badge/Grid.js-1C64F2?link=https%3A%2F%2Fgridjs.io%2F)
-- ![Static Badge](https://img.shields.io/badge/sweetalert2-FDCC80?link=https%3A%2F%2Fsweetalert2.github.io%2F)
-- ![Static Badge](https://img.shields.io/badge/Workbox-FF5723?link=https%3A%2F%2Fdeveloper.chrome.com%2Fdocs%2Fworkbox%2F)
+- [![Static Badge](https://img.shields.io/badge/Tailwindcss-38BDF8?link=https%3A%2F%2Ftailwindcss.com%2F)](https://tailwindcss.com)
+- [![Static Badge](https://img.shields.io/badge/Flowbite-193DD7?link=https%3A%2F%2Fflowbite.com%2F)](https://flowbite.com)
+- [![Static Badge](https://img.shields.io/badge/Grid.js-1C64F2?link=https%3A%2F%2Fgridjs.io%2F)](https://gridjs.io)
+- [![Static Badge](https://img.shields.io/badge/sweetalert2-FDCC80?link=https%3A%2F%2Fsweetalert2.github.io%2F)](https://sweetalert2.github.io)
+- [![Static Badge](https://img.shields.io/badge/Workbox-FF5723?link=https%3A%2F%2Fdeveloper.chrome.com%2Fdocs%2Fworkbox%2F)](https://developer.chrome.com/docs/workbox)
